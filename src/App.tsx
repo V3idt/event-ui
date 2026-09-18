@@ -23,7 +23,7 @@ function AppRoutes() {
     const event = findEvent(path.slice(1))
     const city = cityFromSlug(path.slice(1))
     const category = categories.find(item => new URL(item.href).pathname === path)
-    document.title = path === '/' || path === '/ui' ? 'Event UI' : event ? `${event.name} · Luma` : city ? `Events in ${city} · Luma` : category ? `${category.name} Events · Luma` : path.startsWith('/discover') ? 'Discover Events · Luma' : 'Luma — Delightful events start here'
+    document.title = path === '/' || path === '/ui' ? 'UI · React components' : event ? `${event.name} · Luma` : city ? `Events in ${city} · Luma` : category ? `${category.name} Events · Luma` : path.startsWith('/discover') ? 'Discover Events · Luma' : 'Luma — Delightful events start here'
   }, [path])
   if (path === '/' && !new URLSearchParams(location.search).has('event')) return <LandingPage />
   if (path === '/' || path === '/ui') return <UiGallery />
