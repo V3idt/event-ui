@@ -177,7 +177,7 @@ export function Footer() {
         <div className="footer-container">
           <div className="footer-main-row">
             <div className="footer-navigation">
-              <a className="footer-logo" href="/" aria-label="Luma Home"><FooterLogo /></a>
+              <a className="footer-logo" href="/demo" aria-label="Luma Home"><FooterLogo /></a>
               <nav className="footer-links" aria-label="Footer">
                 <a href="/discover">Discover</a>
                 <a href="https://luma.com/pricing">Pricing</a>

@@ -23,13 +23,13 @@ export function PageHeader() {
   const [time, setTime] = useState(new Date())
   useEffect(() => { const timer = setInterval(() => setTime(new Date()), 60000); return () => clearInterval(timer) }, [])
   return <>
-    <header className="page-header"><a href="/" aria-label="Luma Home"><img className="page-wordmark" src="/assets/wordmark.svg" alt="Luma" /></a><nav aria-label="Main navigation"><span className="header-clock">{time.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' })}</span><button className="icon-button" aria-label="Search events" onClick={() => setSearch(true)}><Icon name="search" /></button><a href="/discover">Discover Events</a><a className="small-pill" href="https://luma.com/signin">Sign In</a></nav></header>
+    <header className="page-header"><a href="/demo" aria-label="Luma Home"><img className="page-wordmark" src="/assets/wordmark.svg" alt="Luma" /></a><nav aria-label="Main navigation"><span className="header-clock">{time.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' })}</span><button className="icon-button" aria-label="Search events" onClick={() => setSearch(true)}><Icon name="search" /></button><a href="/discover">Discover Events</a><a className="small-pill" href="https://luma.com/signin">Sign In</a></nav></header>
     {search && <Modal title="Find your next event" onClose={() => setSearch(false)}><form action="/discover/search" className="search-form"><label htmlFor="global-search">Search events</label><div className="search-input"><Icon name="search" /><input id="global-search" name="q" placeholder="Events, hosts, or places" autoFocus required /><button className="ui-button primary" type="submit">Search</button></div></form></Modal>}
   </>
 }
 
 export function PageFooter() {
-  return <footer className="compact-footer"><div><a href="/" aria-label="Luma Home">✦</a><a href="/discover">Discover</a><a href="https://luma.com/pricing">Pricing</a><a href="https://help.luma.com">Help</a></div><div><a href="mailto:support@luma.com" aria-label="Contact Luma">✉</a><a className="outline-pill" href="https://luma.com/app">Get the App</a></div></footer>
+  return <footer className="compact-footer"><div><a href="/demo" aria-label="Luma Home">✦</a><a href="/discover">Discover</a><a href="https://luma.com/pricing">Pricing</a><a href="https://help.luma.com">Help</a></div><div><a href="mailto:support@luma.com" aria-label="Contact Luma">✉</a><a className="outline-pill" href="https://luma.com/app">Get the App</a></div></footer>
 }
 
 export function useSavedList(key: string) {

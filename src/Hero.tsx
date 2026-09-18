@@ -169,7 +169,7 @@ export default function Hero() {
   return (
     <section ref={heroRef} className={`hero ${hovered ? 'is-revealed' : ''} theme-${theme}`} style={heroStyle} aria-label="Delightful events start here">
       <header className="topnav">
-        <a className="brand-spark" href="/" aria-label="Luma Home"><Sparkle /></a>
+        <a className="brand-spark" href="/demo" aria-label="Luma Home"><Sparkle /></a>
         <a className="sign-in" href="https://luma.com/signin?next=%2Fhome">Sign In</a>
       </header>
 
