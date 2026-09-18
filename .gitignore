@@ -5,3 +5,6 @@ dist/
 artifacts/
 .consumer-check/
 coverage/
+.wrangler/
+.dev.vars*
+.env*
