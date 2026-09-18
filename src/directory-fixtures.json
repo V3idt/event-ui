@@ -1,0 +1,843 @@
+{
+  "cities": [
+    {
+      "name": "Tokyo",
+      "slug": "tokyo",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/tokyo.png",
+      "hero": "https://images.lumacdn.com/discovery/tokyo-desktop.jpg",
+      "timezone": "Asia/Tokyo",
+      "tint": "#e69f93"
+    },
+    {
+      "name": "Osaka",
+      "slug": "osaka",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/osaka.png",
+      "hero": "https://images.lumacdn.com/discovery/osaka-desktop.jpg",
+      "timezone": "Asia/Tokyo",
+      "tint": "#d072d4"
+    },
+    {
+      "name": "Seoul",
+      "slug": "seoul",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/seoul.png",
+      "hero": "https://images.lumacdn.com/discovery/seoul-desktop.jpg",
+      "timezone": "Asia/Seoul",
+      "tint": "#7fabeb"
+    },
+    {
+      "name": "Taipei",
+      "slug": "taipei",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/taipei.png",
+      "hero": "https://images.lumacdn.com/discovery/taipei-desktop.jpg",
+      "timezone": "Asia/Taipei",
+      "tint": "#7173d1"
+    },
+    {
+      "name": "Hong Kong",
+      "slug": "hongkong",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/hongkong.png",
+      "hero": "https://images.lumacdn.com/discovery/hongkong-desktop.jpg",
+      "timezone": "Asia/Hong_Kong",
+      "tint": "#4eaaba"
+    },
+    {
+      "name": "Manila",
+      "slug": "manila",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/manila.png",
+      "hero": "https://images.lumacdn.com/discovery/manila-desktop.jpg",
+      "timezone": "Asia/Manila",
+      "tint": "#7daca4"
+    },
+    {
+      "name": "Ho Chi Minh City",
+      "slug": "ho-chi-minh-city",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/ho-chi-minh-city.png",
+      "hero": "https://images.lumacdn.com/discovery/hcm-desktop.jpg",
+      "timezone": "Asia/Saigon",
+      "tint": "#de674e"
+    },
+    {
+      "name": "Bangkok",
+      "slug": "bangkok",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/bangkok.png",
+      "hero": "https://images.lumacdn.com/discovery/bangkok-desktop.jpg",
+      "timezone": "Asia/Bangkok",
+      "tint": "#e39936"
+    },
+    {
+      "name": "Singapore",
+      "slug": "singapore",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/singapore.png",
+      "hero": "https://images.lumacdn.com/discovery/sg-desktop.jpg",
+      "timezone": "Asia/Singapore",
+      "tint": "#6f802b"
+    },
+    {
+      "name": "Kuala Lumpur",
+      "slug": "kuala-lumpur",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/kuala-lumpur.png",
+      "hero": "https://images.lumacdn.com/discovery/kl-desktop.jpg",
+      "timezone": "Asia/Kuala_Lumpur",
+      "tint": "#9936a3"
+    },
+    {
+      "name": "Jakarta",
+      "slug": "jakarta",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/jakarta.png",
+      "hero": "https://images.lumacdn.com/discovery/jakarta-desktop.jpg",
+      "timezone": "Asia/Jakarta",
+      "tint": "#c7a369"
+    },
+    {
+      "name": "New Delhi",
+      "slug": "new-delhi",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/new-delhi.png",
+      "hero": "https://images.lumacdn.com/discovery/newdelhi-desktop.jpg",
+      "timezone": "Asia/Calcutta",
+      "tint": "#d6826b"
+    },
+    {
+      "name": "Honolulu",
+      "slug": "honolulu",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/honolulu.png",
+      "hero": "https://images.lumacdn.com/discovery/hnl-desktop.jpg",
+      "timezone": "Pacific/Honolulu",
+      "tint": "#327cdb"
+    },
+    {
+      "name": "Bengaluru",
+      "slug": "bengaluru",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/bengaluru.png",
+      "hero": "https://images.lumacdn.com/discovery/blr-desktop.jpg",
+      "timezone": "Asia/Kolkata",
+      "tint": "#a89925"
+    },
+    {
+      "name": "Mumbai",
+      "slug": "mumbai",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/mumbai.png",
+      "hero": "https://images.lumacdn.com/discovery/mumbai-desktop.jpg",
+      "timezone": "Asia/Kolkata",
+      "tint": "#dc6e18"
+    },
+    {
+      "name": "Brisbane",
+      "slug": "brisbane",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/brisbane.png",
+      "hero": "https://images.lumacdn.com/discovery/brisbane-desktop.jpg",
+      "timezone": "Australia/Brisbane",
+      "tint": "#2d82e3"
+    },
+    {
+      "name": "Vancouver",
+      "slug": "vancouver",
+      "continent": "North America",
+      "icon": "/assets/directory/vancouver.png",
+      "hero": "https://images.lumacdn.com/discovery/vancouver-desktop.jpg",
+      "timezone": "America/Vancouver",
+      "tint": "#f5bd53"
+    },
+    {
+      "name": "Seattle",
+      "slug": "seattle",
+      "continent": "North America",
+      "icon": "/assets/directory/seattle.png",
+      "hero": "https://images.lumacdn.com/discovery/seattle-desktop.jpg",
+      "timezone": "America/Los_Angeles",
+      "tint": "#9198e6"
+    },
+    {
+      "name": "Portland",
+      "slug": "portland",
+      "continent": "North America",
+      "icon": "/assets/directory/portland.png",
+      "hero": "https://images.lumacdn.com/discovery/portland-desktop.jpg",
+      "timezone": "America/Los_Angeles",
+      "tint": "#d7968a"
+    },
+    {
+      "name": "Helsinki",
+      "slug": "helsinki",
+      "continent": "Europe",
+      "icon": "/assets/directory/helsinki.png",
+      "hero": "https://images.lumacdn.com/discovery/helsinki-desktop.jpg",
+      "timezone": "Europe/Helsinki",
+      "tint": "#07a395"
+    },
+    {
+      "name": "Sydney",
+      "slug": "sydney",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/sydney.png",
+      "hero": "https://images.lumacdn.com/discovery/sydney-desktop.jpg",
+      "timezone": "Australia/Sydney",
+      "tint": "#da9634"
+    },
+    {
+      "name": "Edmonton",
+      "slug": "edmonton",
+      "continent": "North America",
+      "icon": "/assets/directory/edmonton.png",
+      "hero": "https://images.lumacdn.com/discovery/edmonton-desktop.jpg",
+      "timezone": "America/Edmonton",
+      "tint": "#37b1b8"
+    },
+    {
+      "name": "Dubai",
+      "slug": "dubai",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/dubai.png",
+      "hero": "https://images.lumacdn.com/discovery/dubai-desktop.jpg",
+      "timezone": "Asia/Dubai",
+      "tint": "#ab52ab"
+    },
+    {
+      "name": "Calgary",
+      "slug": "calgary",
+      "continent": "North America",
+      "icon": "/assets/directory/calgary.png",
+      "hero": "https://images.lumacdn.com/discovery/calgary-desktop.jpg",
+      "timezone": "America/Edmonton",
+      "tint": "#18a2b5"
+    },
+    {
+      "name": "Stockholm",
+      "slug": "stockholm",
+      "continent": "Europe",
+      "icon": "/assets/directory/stockholm.png",
+      "hero": "https://images.lumacdn.com/discovery/stockholm-desktop.jpg",
+      "timezone": "Europe/Stockholm",
+      "tint": "#3e6bf0"
+    },
+    {
+      "name": "Melbourne",
+      "slug": "melbourne",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/melbourne.png",
+      "hero": "https://images.lumacdn.com/discovery/mel-desktop.jpg",
+      "timezone": "Australia/Melbourne",
+      "tint": "#afc263"
+    },
+    {
+      "name": "San Francisco",
+      "slug": "sf",
+      "continent": "North America",
+      "icon": "/assets/directory/sf.png",
+      "hero": "https://images.lumacdn.com/discovery/sf-desktop.jpg",
+      "timezone": "America/Los_Angeles",
+      "tint": "#ff6519"
+    },
+    {
+      "name": "Sacramento",
+      "slug": "sacramento",
+      "continent": "North America",
+      "icon": "/assets/directory/sacramento.png",
+      "hero": "https://images.lumacdn.com/discovery/sacramento-desktop.jpg",
+      "timezone": "America/Los_Angeles",
+      "tint": "#34d1a7"
+    },
+    {
+      "name": "Oslo",
+      "slug": "oslo",
+      "continent": "Europe",
+      "icon": "/assets/directory/oslo.png",
+      "hero": "https://images.lumacdn.com/discovery/oslo-desktop.jpg",
+      "timezone": "Europe/Oslo",
+      "tint": "#e6a865"
+    },
+    {
+      "name": "Warsaw",
+      "slug": "warsaw",
+      "continent": "Europe",
+      "icon": "/assets/directory/warsaw.png",
+      "hero": "https://images.lumacdn.com/discovery/warsaw-desktop.jpg",
+      "timezone": "Europe/Warsaw",
+      "tint": "#69a9db"
+    },
+    {
+      "name": "Copenhagen",
+      "slug": "copenhagen",
+      "continent": "Europe",
+      "icon": "/assets/directory/copenhagen.png",
+      "hero": "https://images.lumacdn.com/discovery/cph-desktop.jpg",
+      "timezone": "Europe/Copenhagen",
+      "tint": "#d59469"
+    },
+    {
+      "name": "Salt Lake City",
+      "slug": "salt-lake-city",
+      "continent": "North America",
+      "icon": "/assets/directory/salt-lake-city.png",
+      "hero": "https://images.lumacdn.com/discovery/slc-desktop.jpg",
+      "timezone": "America/Denver",
+      "tint": "#e2a533"
+    },
+    {
+      "name": "Los Angeles",
+      "slug": "la",
+      "continent": "North America",
+      "icon": "/assets/directory/la.png",
+      "hero": "https://images.lumacdn.com/discovery/la-desktop.jpg",
+      "timezone": "America/Los_Angeles",
+      "tint": "#538f21"
+    },
+    {
+      "name": "Auckland",
+      "slug": "auckland",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/auckland.png",
+      "hero": "https://images.lumacdn.com/discovery/auckland-desktop.jpg",
+      "timezone": "Pacific/Auckland",
+      "tint": "#af74c4"
+    },
+    {
+      "name": "Las Vegas",
+      "slug": "las-vegas",
+      "continent": "North America",
+      "icon": "/assets/directory/las-vegas.png",
+      "hero": "https://images.lumacdn.com/discovery/vegas-desktop.jpg",
+      "timezone": "America/Los_Angeles",
+      "tint": "#e5ba47"
+    },
+    {
+      "name": "Berlin",
+      "slug": "berlin",
+      "continent": "Europe",
+      "icon": "/assets/directory/berlin.png",
+      "hero": "https://images.lumacdn.com/discovery/berlin-desktop.jpg",
+      "timezone": "Europe/Berlin",
+      "tint": "#47b4d6"
+    },
+    {
+      "name": "Istanbul",
+      "slug": "istanbul",
+      "continent": "Europe",
+      "icon": "/assets/directory/istanbul.png",
+      "hero": "https://images.lumacdn.com/discovery/istanbul-desktop.jpg",
+      "timezone": "Europe/Istanbul",
+      "tint": "#fc6707"
+    },
+    {
+      "name": "Hamburg",
+      "slug": "hamburg",
+      "continent": "Europe",
+      "icon": "/assets/directory/hamburg.png",
+      "hero": "https://images.lumacdn.com/discovery/hamburg-desktop.jpg",
+      "timezone": "Europe/Berlin",
+      "tint": "#3c78cb"
+    },
+    {
+      "name": "San Diego",
+      "slug": "sd",
+      "continent": "North America",
+      "icon": "/assets/directory/sd.png",
+      "hero": "https://images.lumacdn.com/discovery/sd-desktop.jpg",
+      "timezone": "America/Los_Angeles",
+      "tint": "#3ba4eb"
+    },
+    {
+      "name": "Budapest",
+      "slug": "budapest",
+      "continent": "Europe",
+      "icon": "/assets/directory/budapest.png",
+      "hero": "https://images.lumacdn.com/discovery/budapest-desktop.jpg",
+      "timezone": "Europe/Budapest",
+      "tint": "#e49e57"
+    },
+    {
+      "name": "Prague",
+      "slug": "prague",
+      "continent": "Europe",
+      "icon": "/assets/directory/prague.png",
+      "hero": "https://images.lumacdn.com/discovery/prague-desktop.jpg",
+      "timezone": "Europe/Prague",
+      "tint": "#7a51f5"
+    },
+    {
+      "name": "Vienna",
+      "slug": "vienna",
+      "continent": "Europe",
+      "icon": "/assets/directory/vienna.png",
+      "hero": "https://images.lumacdn.com/discovery/vienna-desktop.jpg",
+      "timezone": "Europe/Vienna",
+      "tint": "#a54bbd"
+    },
+    {
+      "name": "Tel Aviv-Yafo",
+      "slug": "tel-aviv",
+      "continent": "Asia & Pacific",
+      "icon": "/assets/directory/tel-aviv.png",
+      "hero": "https://images.lumacdn.com/discovery/telaviv-desktop.jpg",
+      "timezone": "Asia/Jerusalem",
+      "tint": "#f39050"
+    },
+    {
+      "name": "Amsterdam",
+      "slug": "amsterdam",
+      "continent": "Europe",
+      "icon": "/assets/directory/amsterdam.png",
+      "hero": "https://images.lumacdn.com/discovery/ams-desktop.jpg",
+      "timezone": "Europe/Amsterdam",
+      "tint": "#de475e"
+    },
+    {
+      "name": "Phoenix",
+      "slug": "phoenix",
+      "continent": "North America",
+      "icon": "/assets/directory/phoenix.png",
+      "hero": "https://images.lumacdn.com/discovery/phx-desktop.jpg",
+      "timezone": "America/Phoenix",
+      "tint": "#d65c20"
+    },
+    {
+      "name": "Frankfurt",
+      "slug": "frankfurt",
+      "continent": "Europe",
+      "icon": "/assets/directory/frankfurt.png",
+      "hero": "https://images.lumacdn.com/discovery/frankfurt-desktop.jpg",
+      "timezone": "Europe/Berlin",
+      "tint": "#c94726"
+    },
+    {
+      "name": "Denver",
+      "slug": "denver",
+      "continent": "North America",
+      "icon": "/assets/directory/denver.png",
+      "hero": "https://images.lumacdn.com/discovery/denver-desktop.jpg",
+      "timezone": "America/Denver",
+      "tint": "#e98406"
+    },
+    {
+      "name": "Munich",
+      "slug": "munich",
+      "continent": "Europe",
+      "icon": "/assets/directory/munich.png",
+      "hero": "https://images.lumacdn.com/discovery/munich-desktop.jpg",
+      "timezone": "Europe/Berlin",
+      "tint": "#eaad3b"
+    },
+    {
+      "name": "Brussels",
+      "slug": "brussels",
+      "continent": "Europe",
+      "icon": "/assets/directory/brussels.png",
+      "hero": "https://images.lumacdn.com/discovery/brussels-desktop.jpg",
+      "timezone": "Europe/Brussels",
+      "tint": "#2c7ac0"
+    },
+    {
+      "name": "London",
+      "slug": "london",
+      "continent": "Europe",
+      "icon": "/assets/directory/london.png",
+      "hero": "https://images.lumacdn.com/discovery/london-desktop.jpg",
+      "timezone": "Europe/London",
+      "tint": "#e89800"
+    },
+    {
+      "name": "Zurich",
+      "slug": "zurich",
+      "continent": "Europe",
+      "icon": "/assets/directory/zurich.png",
+      "hero": "https://images.lumacdn.com/discovery/zurich-desktop.jpg",
+      "timezone": "Europe/Zurich",
+      "tint": "#40c991"
+    },
+    {
+      "name": "Dublin",
+      "slug": "dublin",
+      "continent": "Europe",
+      "icon": "/assets/directory/dublin.png",
+      "hero": "https://images.lumacdn.com/discovery/dublin-desktop.jpg",
+      "timezone": "Europe/Dublin",
+      "tint": "#f5a55d"
+    },
+    {
+      "name": "Minneapolis",
+      "slug": "minneapolis",
+      "continent": "North America",
+      "icon": "/assets/directory/minneapolis.png",
+      "hero": "https://images.lumacdn.com/discovery/minneapolis-desktop.jpg",
+      "timezone": "America/Chicago",
+      "tint": "#ba365c"
+    },
+    {
+      "name": "Paris",
+      "slug": "paris",
+      "continent": "Europe",
+      "icon": "/assets/directory/paris.png",
+      "hero": "https://images.lumacdn.com/discovery/paris-desktop.jpg",
+      "timezone": "Europe/Paris",
+      "tint": "#ce8f5c"
+    },
+    {
+      "name": "Milan",
+      "slug": "milan",
+      "continent": "Europe",
+      "icon": "/assets/directory/milan.png",
+      "hero": "https://images.lumacdn.com/discovery/milan-desktop.jpg",
+      "timezone": "Europe/Rome",
+      "tint": "#916a4a"
+    },
+    {
+      "name": "Rome",
+      "slug": "rome",
+      "continent": "Europe",
+      "icon": "/assets/directory/rome.png",
+      "hero": "https://images.lumacdn.com/discovery/rome-desktop.jpg",
+      "timezone": "Europe/Rome",
+      "tint": "#e37a3f"
+    },
+    {
+      "name": "Chicago",
+      "slug": "chicago",
+      "continent": "North America",
+      "icon": "/assets/directory/chicago.png",
+      "hero": "https://images.lumacdn.com/discovery/chicago-desktop.jpg",
+      "timezone": "America/Chicago",
+      "tint": "#e66c9f"
+    },
+    {
+      "name": "Detroit",
+      "slug": "detroit",
+      "continent": "North America",
+      "icon": "/assets/directory/detroit.png",
+      "hero": "https://images.lumacdn.com/discovery/detroit-desktop.jpg",
+      "timezone": "America/Detroit",
+      "tint": "#cf29c4"
+    },
+    {
+      "name": "Waterloo",
+      "slug": "waterloo_ca",
+      "continent": "North America",
+      "icon": "/assets/directory/waterloo_ca.png",
+      "hero": "https://images.lumacdn.com/discovery/waterloo-desktop.jpg",
+      "timezone": "America/Toronto",
+      "tint": "#959a65"
+    },
+    {
+      "name": "Toronto",
+      "slug": "toronto",
+      "continent": "North America",
+      "icon": "/assets/directory/toronto.png",
+      "hero": "https://images.lumacdn.com/discovery/toronto-desktop.jpg",
+      "timezone": "America/Toronto",
+      "tint": "#306ed1"
+    },
+    {
+      "name": "Montréal",
+      "slug": "montreal",
+      "continent": "North America",
+      "icon": "/assets/directory/montreal.png",
+      "hero": "https://images.lumacdn.com/discovery/montreal-desktop.jpg",
+      "timezone": "America/Toronto",
+      "tint": "#387eb1"
+    },
+    {
+      "name": "Dallas",
+      "slug": "dallas",
+      "continent": "North America",
+      "icon": "/assets/directory/dallas.png",
+      "hero": "https://images.lumacdn.com/discovery/dallas-desktop.jpg",
+      "timezone": "America/Chicago",
+      "tint": "#dbb58c"
+    },
+    {
+      "name": "Barcelona",
+      "slug": "barcelona",
+      "continent": "Europe",
+      "icon": "/assets/directory/barcelona.png",
+      "hero": "https://images.lumacdn.com/discovery/bcn-desktop.jpg",
+      "timezone": "Europe/Madrid",
+      "tint": "#1e72be"
+    },
+    {
+      "name": "Cincinnati",
+      "slug": "cincinnati",
+      "continent": "North America",
+      "icon": "/assets/directory/cincinnati.png",
+      "hero": "https://images.lumacdn.com/discovery/cincinnati-desktop.jpg",
+      "timezone": "America/New_York",
+      "tint": "#db465d"
+    },
+    {
+      "name": "Austin",
+      "slug": "austin",
+      "continent": "North America",
+      "icon": "/assets/directory/austin.png",
+      "hero": "https://images.lumacdn.com/discovery/austin-desktop.jpg",
+      "timezone": "America/Chicago",
+      "tint": "#f5b938"
+    },
+    {
+      "name": "Pittsburgh",
+      "slug": "pittsburgh",
+      "continent": "North America",
+      "icon": "/assets/directory/pittsburgh.png",
+      "hero": "https://images.lumacdn.com/discovery/pittsburgh-desktop.jpg",
+      "timezone": "America/New_York",
+      "tint": "#6e66ed"
+    },
+    {
+      "name": "Houston",
+      "slug": "houston",
+      "continent": "North America",
+      "icon": "/assets/directory/houston.png",
+      "hero": "https://images.lumacdn.com/discovery/houston-desktop.jpg",
+      "timezone": "America/Chicago",
+      "tint": "#bc693b"
+    },
+    {
+      "name": "Madrid",
+      "slug": "madrid",
+      "continent": "Europe",
+      "icon": "/assets/directory/madrid.png",
+      "hero": "https://images.lumacdn.com/discovery/madrid-desktop.jpg",
+      "timezone": "Europe/Madrid",
+      "tint": "#c2bc4f"
+    },
+    {
+      "name": "Boston",
+      "slug": "boston",
+      "continent": "North America",
+      "icon": "/assets/directory/boston.png",
+      "hero": "https://images.lumacdn.com/discovery/boston-desktop.jpg",
+      "timezone": "America/New_York",
+      "tint": "#d77f30"
+    },
+    {
+      "name": "New York",
+      "slug": "nyc",
+      "continent": "North America",
+      "icon": "/assets/directory/nyc.png",
+      "hero": "https://images.lumacdn.com/discovery/nyc-desktop2.jpg",
+      "timezone": "America/New_York",
+      "tint": "#e08d55"
+    },
+    {
+      "name": "Philadelphia",
+      "slug": "philadelphia",
+      "continent": "North America",
+      "icon": "/assets/directory/philadelphia.png",
+      "hero": "https://images.lumacdn.com/discovery/philly-desktop.jpg",
+      "timezone": "America/New_York",
+      "tint": "#e7963f"
+    },
+    {
+      "name": "Washington, DC",
+      "slug": "dc",
+      "continent": "North America",
+      "icon": "/assets/directory/dc.png",
+      "hero": "https://images.lumacdn.com/discovery/dc-desktop.jpg",
+      "timezone": "America/New_York",
+      "tint": "#bbb0a6"
+    },
+    {
+      "name": "Atlanta",
+      "slug": "atlanta",
+      "continent": "North America",
+      "icon": "/assets/directory/atlanta.png",
+      "hero": "https://images.lumacdn.com/discovery/atlanta-desktop.jpg",
+      "timezone": "America/New_York",
+      "tint": "#2f7ca9"
+    },
+    {
+      "name": "Raleigh",
+      "slug": "raleigh",
+      "continent": "North America",
+      "icon": "/assets/directory/raleigh.png",
+      "hero": "https://images.lumacdn.com/discovery/raleigh-desktop.jpg",
+      "timezone": "America/New_York",
+      "tint": "#70bf2a"
+    },
+    {
+      "name": "Lisbon",
+      "slug": "lisbon",
+      "continent": "Europe",
+      "icon": "/assets/directory/lisbon.png",
+      "hero": "https://images.lumacdn.com/discovery/lisbon-desktop.jpg",
+      "timezone": "Europe/Lisbon",
+      "tint": "#df7440"
+    },
+    {
+      "name": "Nairobi",
+      "slug": "nairobi",
+      "continent": "Africa",
+      "icon": "/assets/directory/nairobi.png",
+      "hero": "https://images.lumacdn.com/discovery/nairobi-desktop.jpg",
+      "timezone": "Africa/Nairobi",
+      "tint": "#546d06"
+    },
+    {
+      "name": "Mexico City",
+      "slug": "mexico-city",
+      "continent": "North America",
+      "icon": "/assets/directory/mexico-city.png",
+      "hero": "https://images.lumacdn.com/discovery/cdmx-desktop.jpg",
+      "timezone": "America/Mexico_City",
+      "tint": "#e09f5e"
+    },
+    {
+      "name": "Miami",
+      "slug": "miami",
+      "continent": "North America",
+      "icon": "/assets/directory/miami.png",
+      "hero": "https://images.lumacdn.com/discovery/miami-desktop.jpg",
+      "timezone": "America/New_York",
+      "tint": "#408dae"
+    },
+    {
+      "name": "Lagos",
+      "slug": "lagos",
+      "continent": "Africa",
+      "icon": "/assets/directory/lagos.png",
+      "hero": "https://images.lumacdn.com/discovery/lagos-desktop.jpg",
+      "timezone": "Africa/Lagos",
+      "tint": "#757366"
+    },
+    {
+      "name": "Medellín",
+      "slug": "medellin",
+      "continent": "South America",
+      "icon": "/assets/directory/medellin.png",
+      "hero": "https://images.lumacdn.com/discovery/medellin-desktop.jpg",
+      "timezone": "America/Bogota",
+      "tint": "#4e98cf"
+    },
+    {
+      "name": "Bogotá",
+      "slug": "bogota",
+      "continent": "South America",
+      "icon": "/assets/directory/bogota.png",
+      "hero": "https://images.lumacdn.com/discovery/bogota-desktop.jpg",
+      "timezone": "America/Bogota",
+      "tint": "#d28a4f"
+    },
+    {
+      "name": "Cape Town",
+      "slug": "capetown",
+      "continent": "Africa",
+      "icon": "/assets/directory/capetown.png",
+      "hero": "https://images.lumacdn.com/discovery/capetown-desktop.jpg",
+      "timezone": "Africa/Johannesburg",
+      "tint": "#57c9c9"
+    },
+    {
+      "name": "Buenos Aires",
+      "slug": "buenos-aires",
+      "continent": "South America",
+      "icon": "/assets/directory/buenos-aires.png",
+      "hero": "https://images.lumacdn.com/discovery/ba-desktop.jpg",
+      "timezone": "America/Buenos_Aires",
+      "tint": "#e57d6e"
+    },
+    {
+      "name": "São Paulo",
+      "slug": "saopaulo",
+      "continent": "South America",
+      "icon": "/assets/directory/saopaulo.png",
+      "hero": "https://images.lumacdn.com/discovery/sp-desktop.jpg",
+      "timezone": "America/Sao_Paulo",
+      "tint": "#7f747a"
+    },
+    {
+      "name": "Rio de Janeiro",
+      "slug": "rio",
+      "continent": "South America",
+      "icon": "/assets/directory/rio.png",
+      "hero": "https://images.lumacdn.com/discovery/rio-desktop.jpg",
+      "timezone": "America/Sao_Paulo",
+      "tint": "#5a8fc4"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Family",
+      "slug": "family",
+      "hero": "/assets/directory/family-hero.jpg",
+      "tint": "#AE6BCF"
+    },
+    {
+      "name": "Books",
+      "slug": "books",
+      "hero": "/assets/directory/books-hero.jpg",
+      "tint": "#D5AD37"
+    },
+    {
+      "name": "Games",
+      "slug": "games",
+      "hero": "/assets/directory/games-hero.jpg",
+      "tint": "#AF7A35"
+    },
+    {
+      "name": "Tech",
+      "slug": "tech",
+      "hero": "/assets/directory/tech-hero.jpg",
+      "tint": "#5773CF"
+    },
+    {
+      "name": "Food & Drink",
+      "slug": "food",
+      "hero": "/assets/directory/food-hero.jpg",
+      "tint": "#D58530"
+    },
+    {
+      "name": "AI",
+      "slug": "ai",
+      "hero": "/assets/directory/ai-hero.jpg",
+      "tint": "#D96D9B"
+    },
+    {
+      "name": "Running",
+      "slug": "running",
+      "hero": "/assets/directory/running-hero.jpg",
+      "tint": "#87A747"
+    },
+    {
+      "name": "Arts & Culture",
+      "slug": "arts",
+      "hero": "/assets/directory/arts-hero.jpg",
+      "tint": "#AEA73C"
+    },
+    {
+      "name": "Climate",
+      "slug": "climate",
+      "hero": "/assets/directory/climate-hero.jpg",
+      "tint": "#60AD57"
+    },
+    {
+      "name": "Fitness",
+      "slug": "fitness",
+      "hero": "/assets/directory/fitness-hero.jpg",
+      "tint": "#5DA3C9"
+    },
+    {
+      "name": "Wellness",
+      "slug": "wellness",
+      "hero": "/assets/directory/wellness-hero.jpg",
+      "tint": "#73AFBB"
+    },
+    {
+      "name": "Crypto",
+      "slug": "crypto",
+      "hero": "/assets/directory/crypto-hero.jpg",
+      "tint": "#806AD6"
+    }
+  ]
+}
