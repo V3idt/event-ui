@@ -1,16 +1,16 @@
-# UI library and fidelity plan
+# UI library and reference-demo ledger
 
-Updated: September 18, 2026. Scope: the public homepage, discovery directory, city/category browsing, event previews, and event detail pages. This is an implementation plan and coverage ledger, not a claim that every item below is implemented or visually verified.
+Updated: September 18, 2026.
 
-**Current milestone:** a locally installable React library with foundations, dropdowns, event cards, event details, registration, previews, and backgrounds. The clone and independent consumer share one component catalog.
+UI is a general React component library for cards, buttons, forms, menus, panels, and animated backgrounds. Its homepage and catalog serve people building their own products. The original Luma recreation remains an optional integration example.
 
-It remains a **private alpha**. Start with the [package API guide](../packages/react/README.md), [quickstart](../README.md), or [catalog](http://localhost:5173/ui).
+The package remains a private alpha with unfinished provenance and licensing work. Start with the [package guide](../packages/react/README.md), [agent guide](agent-guide.md), or [catalog](https://ui.wtw.quest/ui). Retain current package imports and CSS tokens for compatibility; their historical names do not define the product's scope.
 
-The library should reproduce a **versioned, recorded set of Luma states**. “Perfect copy” is an acceptance criterion for that set, not something a homepage screenshot or successful build proves. The live reference changes its events, dates, randomized artwork, and themes. Unknown states remain visible in the ledger until captured; they must not quietly become generic substitutes.
+This document records current components and the original reference-demo research. Fidelity requirements below apply to that recorded demo and any components claiming reference parity. They do not make an event site the default for new consumers or commit the general library to every proposed extraction.
 
 ## Current implementation
 
-The original omissions have been addressed in code: event pages now use distinct Legacy, Warp, Life, and Grain renderers, and event links can open an intermediate preview. [Recorded browser checks](../reference/QA.md) cover selected layouts and interactions. Exact transition motion, all responsive states, and full reference parity remain open.
+The shared catalog uses the exported cards, controls, forms, menus, panels, and backgrounds. It also includes optional event compositions from the reference demo. [Recorded browser checks](../reference/QA.md) cover selected reference layouts and interactions; full reference parity remains open.
 
 | Alpha component | Implementation | Configuration |
 | --- | --- | --- |
@@ -28,25 +28,25 @@ The original omissions have been addressed in code: event pages now use distinct
 The package builds ESM, TypeScript declarations, and an explicit stylesheet. React 19 and React DOM are peer dependencies.
 
 - `examples/react` installs the tarball and serves at `/playground/`.
-- The clone's `/ui` route imports the same `Catalog.tsx`. Root Vite deduplication and TypeScript paths resolve the workspace package and one React instance.
+- The site's `/ui` route imports the same `Catalog.tsx`. Root Vite deduplication and TypeScript paths resolve the workspace package and one React instance.
 - `npm run verify:package` checks a fresh installation outside the repository, TypeScript, production build, exports/assets, and Node SSR.
 - `npm test` covers form semantics, keyboard interaction, controlled behavior, SSR/hydration, overlay cleanup, and animation lifecycle.
 
 These checks establish functional behavior and portability. Visual comparison remains separate work.
 
-The clone's timeline and discovery rows now use `EventCard`; `PageUI` imports the package's `Icon`. Existing `src/ui` adapters continue to expose panels and backgrounds. `EventPreviewProvider`/`EventLink` own selection and URL/history handling.
+In the reference demo, timeline and discovery rows use `EventCard`; `PageUI` imports the package's `Icon`. Existing `src/ui` adapters continue to expose panels and backgrounds. `EventPreviewProvider`/`EventLink` own selection and URL/history handling.
 
 The shared catalog uses `EventDetails` for its full pages and previews. The original `EventPage.tsx` still owns its app-specific layout and local actions. A full migration to the package presentation remains work to do.
 
-The catalog's `src/assets` contains the clone's Inter, Roc Grotesk, and Geist Mono fonts, four captured covers, available host avatars, and wordmark. These are **demo-only assets**, excluded from the component package. Package consumers provide their own fonts, data, and URLs. Source-derived renderers and the grain texture remain covered by the [provenance review](../packages/react/PROVENANCE.md).
+The catalog's `src/assets` contains demo fonts, four captured covers, available profile photos, and reference branding. These are **demo-only assets**, excluded from the component package. Package consumers provide their own fonts, data, and URLs. Source-derived renderers and the grain texture remain covered by the [provenance review](../packages/react/PROVENANCE.md).
 
-The existing nine fixtures contain six `legacy` events and one each of `warp`, `life`, and `grain-dark`. Theme configuration is larger than a background name: the inspected reference registry also defines title fonts, light/dark behavior, high-contrast surfaces, cover treatment, liquid glass, and tint behavior. For example, its defaults specify Roc Grotesk for Warp, Geist Mono for Life, and Futura for Grain. An event's own explicit settings may override defaults. Applying Roc Grotesk and a dark palette to every event loses these details.
+The reference demo's nine fixtures contain six `legacy` events and one each of `warp`, `life`, and `grain-dark`. Theme configuration is larger than a background name: the inspected reference registry also defines title fonts, light/dark behavior, high-contrast surfaces, cover treatment, liquid glass, and tint behavior. For example, its defaults specify Roc Grotesk for Warp, Geist Mono for Life, and Futura for Grain. An event's own explicit settings may override defaults. Applying Roc Grotesk and a dark palette to every event loses these details.
 
-Directory tiles, timelines, dialogs, maps, site headers/footers, and marketing sections remain app-specific. Extract them with explicit data, routing, clock, asset, and storage boundaries.
+Reference directory tiles, timelines, dialogs, maps, headers, footers, and marketing sections remain app-specific. Any future extraction needs explicit data, routing, clock, asset, and storage boundaries.
 
-## Source of truth and evidence
+## Reference-demo evidence
 
-Maintain a reference manifest with one row per route, theme, component variant, and interaction state. Each row records:
+For reference comparisons, maintain a manifest with one row per route, theme, component variant, and interaction state. Each row records:
 
 - Stable ID, reference URL, capture timestamp, viewport, DPR, browser/OS, locale, timezone, current clock, motion preference, and whether fonts/images have finished loading.
 - Exact fixture/theme configuration, source asset URL and content hash, reference screenshot, a short recording for motion, and important computed styles or bounding boxes.
@@ -78,7 +78,7 @@ Registration state is not permanently determined by an event's date on the live 
 
 ## Component boundaries
 
-Keep the clone as the integration example and the tarball consumer as the portability check. The table distinguishes current exports from remaining extraction work.
+General components accept user content, styling, and callbacks. The tarball consumer checks portability; the reference demo is one integration example. The table records current exports and candidate extractions from the original demo.
 
 | Layer | Public components/modules | Current extraction source | Required responsibility |
 | --- | --- | --- | --- |
@@ -120,22 +120,22 @@ Two components can look different while sharing behavior. In particular, a cente
 
 Use `variant="compact"` for discovery rows. `renderLink` receives the native anchor props and children so a router or preview controller can wrap them without nested links. `EventDetails` accepts already-formatted date labels, host/location data, content slots, and registration actions. See the [package API guide](../packages/react/README.md).
 
-## Tokens and theme resolution
+## Tokens and reference-theme research
 
-The alpha uses scoped component CSS and configurable `--event-ui-*` tokens for panels and controls. It does not import the app's universal reset. A shared semantic token source, generated types, and full event-theme resolution remain planned. Separate:
+The alpha uses scoped component CSS and configurable `--event-ui-*` tokens for panels and controls. It does not import the app's universal reset. Consumers choose their fonts, colors, and composition. The original reference-theme proposal separates:
 
 1. Foundation values: reference color ramps, spacing, radii, typography metrics, shadows, borders, blur, z-index, and motion curves.
 2. Semantic roles: page/surface/raised surface; text/secondary/tertiary; border/hover/focus; primary action/destructive/disabled.
 3. Component values: preview width and inset, cover radius, registration panel glass opacity, timeline gap, header height.
 4. Theme overrides: font, color mode, tint, background renderer and parameters, cover frame, glass/high-contrast treatment.
 
-Resolution order should preserve reference semantics: defaults → selected theme defaults → event-specific settings → explicit consumer overrides. Record the origin of each measured value. Color mode can be explicit light/dark or reference-derived; it cannot be inferred solely from the cover's average color unless the reference does so.
+For reference-demo fidelity, the proposed resolution order is: defaults → selected theme defaults → event-specific settings → explicit consumer overrides. Record the origin of each measured value. Color mode can be explicit light/dark or reference-derived; it cannot be inferred solely from the cover's average color unless the reference does so.
 
-Initial measured values worth preserving include the homepage's `#151515` base, 960px content width, 80px/500 title at desktop with `.92` line height, and title sizes 70/60/48/40px at the inspected 1000/820/650/450px breakpoints. The reference hero reveal uses a 200ms hover dwell and 500ms transitions; its entrance curve is `cubic-bezier(.55,1.42,.34,1)` and exit curve is `cubic-bezier(.22,1,.36,1)`. These are homepage measurements, not a license to reuse those values for every drawer, modal, or event animation.
+Recorded values from the reference homepage include its `#151515` base, 960px content width, 80px/500 title at desktop with `.92` line height, and title sizes 70/60/48/40px at the inspected 1000/820/650/450px breakpoints. The reference hero reveal uses a 200ms hover dwell and 500ms transitions; its entrance curve is `cubic-bezier(.55,1.42,.34,1)` and exit curve is `cubic-bezier(.22,1,.36,1)`. These are homepage measurements, not a license to reuse those values for every drawer, modal, or event animation.
 
-The present homepage CSS uses a 600ms reveal with a shared curve; that difference belongs in the ledger. Its CSS poster float is also an approximation of the reference's continuous x/y functions. Record exact motion parameters before extracting those effects as stable library APIs.
+The reference-demo homepage CSS uses a 600ms reveal with a shared curve; that difference belongs in the ledger. Its CSS poster float is also an approximation of the reference's continuous x/y functions. Record exact motion parameters before extracting those effects as stable library APIs.
 
-## Theme coverage
+## Reference theme coverage
 
 The captured registry contains **43 theme IDs**. The alpha renders **five variants across four families**: `legacy`, `warp`, `life`, `grain-dark`, and `grain-light`. Four IDs occur in captured event fixtures; Grain Light is implemented from inspected configuration but lacks a captured event comparison. Finding a name in source does not establish visual support. A library claiming the full catalog must close every row below, including each family's configuration variants.
 
@@ -156,9 +156,9 @@ The captured registry contains **43 theme IDs**. The alpha renders **five varian
 
 Families without an alpha renderer remain inventory items until their behavior is captured and implemented. Verify the existing families before filling additional names with guessed effects.
 
-## State matrix
+## Reference-demo state matrix
 
-This is the minimum capture/implementation matrix. “Verify” below denotes required work, not a completed test. Every visual component also needs default, hover, active, focus-visible, and disabled states where meaningful.
+This records the original reference capture and implementation scope. “Verify” below denotes required work, not a completed test. Every visual component also needs default, hover, active, focus-visible, and disabled states where meaningful.
 
 | Surface | Visual/data variants | Interaction and transition states to verify |
 | --- | --- | --- |
@@ -187,7 +187,7 @@ The intermediate preview is part of the navigation model, not just a different c
 - Whether expansion shares state, preserves background animation time, and restores the originating page when dismissed/backed out.
 - Mobile layout and gesture behavior only when observed; do not add a swipe gesture merely because it seems appropriate.
 
-## Visual and motion verification
+## Reference visual and motion verification
 
 The shared catalog at `/ui` and `/playground/` provides interactive controls, usage examples, event compositions, and theme settings. Both entry points use the same catalog source; the standalone app tests the packed package. Expand state coverage and evidence links before treating this as a complete reference-backed catalog.
 
@@ -205,7 +205,7 @@ Interaction checks must cover event-card → preview → full page → Back, clo
 
 Store reviewed baselines, overlays/diffs, short motion clips, and a machine-readable coverage report as build artifacts. A reviewer should be able to see exactly which row changed; avoid a single blanket “looks close” approval. Browser checks performed during development remain useful evidence, but no automated reference comparison suite currently exists in this repository.
 
-## Remaining fidelity gaps
+## Remaining reference-demo fidelity gaps
 
 These remain open until evidence closes them, even if the app builds:
 
@@ -221,16 +221,13 @@ These remain open until evidence closes them, even if the app builds:
 - Selected durable screenshots, local galleries, and package-consumer tests exist. A complete reference-state manifest, reviewed screenshot/motion baseline corpus, and automated reference comparison suite do not.
 - Public release is blocked on provenance and license decisions. Source-derived renderers and the bundled grain texture require review or replacement; demo reference assets require a separate review.
 
-## Delivery sequence and release gates
+## Delivery and release scope
 
 Keep commits atomic, as required by the global `AGENTS.md`. Each commit should have one reviewable purpose and its relevant evidence.
 
-1. **Expanded alpha—implemented:** foundations, dropdowns, event cards/details/registration, panels, backgrounds, scoped styles, ESM/declarations, React peers, tests, tarball consumer, and CI. Run `npm run build`, `npm test`, and `npm run verify:package` after package changes.
-2. **Reference coverage—incomplete:** preserve full theme settings, font choices, permitted assets, state manifests, and a deterministic clock/seed harness. Extend selected existing checks into repeatable visual/motion comparisons.
-3. **Public release preparation—open:** review source-derived code and the grain texture; replace or obtain permission where needed. Choose the public name and license. Review repository history before sharing demo material.
-4. **Further composition—planned:** migrate the original event page to shared presentation, extract centered dialogs and remaining event subcomponents, and add missing states. Keep routing/storage/registration actions in adapters.
-5. **Discovery and marketing—planned:** extract timelines, filters, directory tiles, and landing components while preserving their distinct layouts. Add responsive and motion evidence.
-6. **Additional theme families—planned:** capture and implement deliberately. A family remains experimental until its variants, settings, font/cover treatment, and lifecycle pass review.
+1. Keep general controls, forms, panels, and backgrounds usable through explicit props, scoped styles, and documented imports. Run applicable build, interaction, and package-consumer checks after changes.
+2. Review source-derived code and the grain texture before selecting a redistribution license. Review demo assets separately. The package remains an unlicensed alpha.
+3. Treat further reference extraction, event-page migration, discovery layouts, and additional theme families as optional work. Preserve the measurements and gaps above without presenting them as implemented features.
 
 Current imports: `@event-ui/react`, `@event-ui/react/components`, `@event-ui/react/panels`, `@event-ui/react/backgrounds`, and `@event-ui/react/styles.css`. The package name is provisional. Fonts, sample content, branding, and event artwork stay in the demos. Grain texture provenance is documented separately. A dedicated landing-page export does not exist yet.
 

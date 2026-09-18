@@ -1,6 +1,8 @@
 # Use UI in a project
 
-UI provides React components for cards, buttons, forms, menus, panels, and animated backgrounds. Use the exported components before writing substitutes.
+UI provides React components for cards, buttons, forms, menus, panels, and animated backgrounds. Build the user's product with these general components and their own content. Follow the project's visual direction, typography, and layout needs.
+
+Use the exported components before writing substitutes. `@event-ui/react`, `EventBackground`, and `--event-ui-*` are retained technical names. They work in general UI; they do not require an event site.
 
 ## Read first
 
@@ -83,41 +85,9 @@ export function NewsletterSignup({ onJoin }: { onJoin: (email: string) => Promis
 
 Pass a real `onJoin` handler when using this form. The package supplies presentation; your app supplies authentication, persistence, payments, and submission behavior.
 
-## Optional recipe: event preview
-
-Keep `EventPreview` mounted while toggling `open` so its exit animation finishes. Forward every prop from `renderLink` and preserve modified clicks and native link navigation:
-
-```tsx
-import { useState } from 'react'
-import { EventCard, EventDetails, EventPreview } from '@event-ui/react'
-
-export function EventListing({ title, href, coverUrl }: { title: string; href: string; coverUrl: string }) {
-  const [open, setOpen] = useState(false)
-
-  return <>
-    <EventCard title={title} href={href} coverUrl={coverUrl}
-      renderLink={linkProps => <a {...linkProps} onClick={event => {
-        linkProps.onClick?.(event)
-        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
-        event.preventDefault()
-        setOpen(true)
-      }} />}
-    />
-    <EventPreview open={open} onClose={() => setOpen(false)} title={title} href={href}>
-      <EventDetails title={title} coverUrl={coverUrl} presentation="preview"
-        date={{ month: 'OCT', day: 8, label: 'Thursday, October 8', time: '6:00 PM' }}
-        about={<p>An evening to share what you are making.</p>}
-      />
-    </EventPreview>
-  </>
-}
-```
-
-Supply an event URL that resolves in the consuming app. `EventPreview` opens its event-page link in a new tab by default. Set `eventLinkTarget="_self"` if the app needs same-tab navigation.
-
 ## Style it
 
-The package includes scoped CSS. It does not bundle demo fonts, logos, or event photography. Load fonts and provide images from the consuming app.
+The package includes scoped CSS. It does not bundle demo fonts, logos, or photography. Load fonts and provide images from the consuming app.
 
 ```css
 :root {
@@ -155,3 +125,7 @@ npm run verify:package
 ```
 
 `verify:package` installs a fresh tarball outside the workspace, then checks TypeScript, a production build, package exports, bundled assets, and server rendering. It does not verify the consuming project's backend or framework integration.
+
+## Optional recipes
+
+For an event feature, use the [event preview recipe](https://ui.wtw.quest/ui#event-preview) and its exact API declarations below. Keep `EventPreview` mounted while toggling `open`; preserve modified clicks and native links when connecting a preview. Use `SidePanel` for general drawers and settings panels.

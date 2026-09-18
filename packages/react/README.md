@@ -1,8 +1,10 @@
 # UI · local alpha
 
-React components for cards, buttons, forms, menus, panels, and animated backgrounds. Includes event layouts from the original Luma recreation.
+React components for cards, buttons, forms, menus, panels, and animated backgrounds. Compose them around your content and app.
 
 **Status:** installable locally. Not published or licensed for public redistribution yet. Read [PROVENANCE.md](./PROVENANCE.md) before releasing it.
+
+`@event-ui/react`, `EventBackground`, and `--event-ui-*` are retained technical names. The general components work across React projects.
 
 ## Install
 
@@ -37,7 +39,7 @@ ES modules and TypeScript declarations are included. React and React DOM are pee
 | Forms | `Field`, `Input`, `Textarea`, `Checkbox`, `Switch`, `Select` |
 | Navigation | `Tabs`, `DropdownMenu` |
 | Panels and backgrounds | `SidePanel`, `EventBackground` |
-| Event layouts | `EventCard`, `EventDetails`, `RegistrationCard`, `EventPreview` |
+| Optional event recipes | `EventCard`, `EventDetails`, `RegistrationCard`, `EventPreview` |
 
 The component catalog uses these same exports.
 
@@ -161,7 +163,62 @@ Desktop drawer; mobile bottom sheet at 450px and below. Includes a native modal 
 
 Optional props: `className`, `style`, `toolbarClassName`, `contentClassName`, `portalContainer`. The portal defaults to `document.body`; supply a container in the current document when needed.
 
+## Fonts and customization
+
+The demo loads Inter. The package does not include font files: load your chosen font in your application and set `--event-ui-font-family`.
+
+CSS variables work globally or on a containing element. Panels portal to `document.body` by default, so use global variables or panel `style` for their overrides.
+
+```css
+:root {
+  --event-ui-font-family: Inter, system-ui, sans-serif;
+  --event-ui-color: #ffffff;
+  --event-ui-card-background: #ffffff05;
+  --event-ui-panel-background: #232323;
+  --event-ui-panel-color: #ffffff;
+  --event-ui-focus: #ffffffa6;
+  --event-ui-focus-color: #ffffffa6;
+}
+```
+
+Useful tokens:
+
+- Foundations: `--event-ui-border`, `--event-ui-muted-color`, `--event-ui-primary-{background,color,hover}`, `--event-ui-input-{background,border}`.
+- Menus: `--event-ui-menu-background`, `--event-ui-border`, `--event-ui-focus`.
+- Panels: `--event-ui-panel-{width,radius,mobile-radius,border,backdrop}`, `--event-ui-motion-duration`, `--event-ui-motion-easing`.
+- Preview toolbar: `--event-ui-control-{background,color,hover-background,hover-color,radius}`.
+
+## Imports and rendering
+
+| Import | Includes |
+| --- | --- |
+| `@event-ui/react` | All components |
+| `@event-ui/react/components` | Foundations, dropdowns, and event cards/details; no animated background renderers |
+| `@event-ui/react/panels` | `SidePanel`, `EventPreview` |
+| `@event-ui/react/backgrounds` | Background component, helpers, and types |
+
+Always import `@event-ui/react/styles.css` separately.
+
+SSR imports are safe. Panels render nothing on the server and mount a portal after hydration. Backgrounds render their static surface first, then initialize animation on the client. JavaScript entries preserve `"use client"` for React server-component frameworks; framework-specific integration is not yet tested.
+
+No router, sample data, downloaded fonts, logos, or demo photos are included. Your application supplies them.
+
+## Validation
+
+From the repository root:
+
+```sh
+npm test                # keyboard, forms, lifecycle, and SSR checks
+npm run verify:package  # fresh tarball install + TS/build/SSR checks
+npm run example:install
+npm run example:dev     # http://localhost:5174/playground/
+```
+
+Five background variants are available. Reference comparisons remain incomplete; see [provenance and status](./PROVENANCE.md).
+
 ## Optional event layouts
+
+These recipes come from the original Luma reference demo. Use them when your app needs event cards, registration, or previews.
 
 ```tsx
 <EventCard
@@ -206,56 +263,3 @@ Your app owns event data, navigation, registration, and open state. Keep the com
 - `copyFallback(url, error)` / `onCopyError(error)`: handle clipboard failures.
 - `eventLinkTarget`: `_blank` by default; `eventLinkRel` is configurable.
 - All `SidePanel` props above are available except `label` and `toolbar`.
-
-## Fonts and customization
-
-The demo loads Inter. The package does not include font files: load your chosen font in your application and set `--event-ui-font-family`.
-
-CSS variables work globally or on a containing element. Panels portal to `document.body` by default, so use global variables or panel `style` for their overrides.
-
-```css
-:root {
-  --event-ui-font-family: Inter, system-ui, sans-serif;
-  --event-ui-color: #ffffff;
-  --event-ui-card-background: #ffffff05;
-  --event-ui-panel-background: #232323;
-  --event-ui-panel-color: #ffffff;
-  --event-ui-focus: #ffffffa6;
-  --event-ui-focus-color: #ffffffa6;
-}
-```
-
-Useful tokens:
-
-- Foundations: `--event-ui-border`, `--event-ui-muted-color`, `--event-ui-primary-{background,color,hover}`, `--event-ui-input-{background,border}`.
-- Menus: `--event-ui-menu-background`, `--event-ui-border`, `--event-ui-focus`.
-- Panels: `--event-ui-panel-{width,radius,mobile-radius,border,backdrop}`, `--event-ui-motion-duration`, `--event-ui-motion-easing`.
-- Preview toolbar: `--event-ui-control-{background,color,hover-background,hover-color,radius}`.
-
-## Imports and rendering
-
-| Import | Includes |
-| --- | --- |
-| `@event-ui/react` | All components |
-| `@event-ui/react/components` | Foundations, dropdowns, and event cards/details; no animated background renderers |
-| `@event-ui/react/panels` | `SidePanel`, `EventPreview` |
-| `@event-ui/react/backgrounds` | Background component, helpers, and types |
-
-Always import `@event-ui/react/styles.css` separately.
-
-SSR imports are safe. Panels render nothing on the server and mount a portal after hydration. Backgrounds render their static surface first, then initialize animation on the client. JavaScript entries preserve `"use client"` for React server-component frameworks; framework-specific integration is not yet tested.
-
-No router, event fixtures, downloaded fonts, logos, or event photos are included. Your application supplies them.
-
-## Validation
-
-From the repository root:
-
-```sh
-npm test                # keyboard, forms, lifecycle, and SSR checks
-npm run verify:package  # fresh tarball install + TS/build/SSR checks
-npm run example:install
-npm run example:dev     # http://localhost:5174/playground/
-```
-
-Five background variants are available. The Luma example remains a work in progress.
