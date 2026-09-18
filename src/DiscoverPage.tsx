@@ -1,10 +1,11 @@
 import { useState } from 'react'
+import { EventLink } from './EventPreviewProvider'
 import { categories, communities } from './discovery-data'
 import { allEvents, cityGroups, citySlug, eventCity, directoryCities, relativeEventDate, eventTags, eventTime, popularEvents, type EventRecord } from './event-data'
 import { Icon, PageFooter, PageHeader, useSavedList } from './PageUI'
 
 export function CompactEvent({ event }: { event: EventRecord }) {
-  return <a className="compact-event" href={`/${event.slug}`}><img src={event.image} alt="" width="80" height="80" /><div><span className="muted text-sm">{relativeEventDate(event)}, {eventTime(event)}</span><h3>{event.name}</h3>{!event.privateLocation && <span className="muted text-sm">{event.location}</span>}</div></a>
+  return <EventLink className="compact-event" event={event} sequence={popularEvents}><img src={event.image} alt="" width="80" height="80" /><div><span className="muted text-sm">{relativeEventDate(event)}, {eventTime(event)}</span><h3>{event.name}</h3>{!event.privateLocation && <span className="muted text-sm">{event.location}</span>}</div></EventLink>
 }
 
 export default function DiscoverPage() {

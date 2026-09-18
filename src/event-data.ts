@@ -1,5 +1,6 @@
 import fixtures from './event-fixtures.json'
 import directory from './directory-fixtures.json'
+import capturedThemes from './ui/backgrounds/event-theme-fixtures.json'
 
 export interface EventRecord {
   slug: string; name: string; image: string; start: string; end: string; timezone: string;
@@ -8,8 +9,10 @@ export interface EventRecord {
   approval: boolean; price: { cents: number; currency: string } | null;
   categories: { name: string; slug: string; description?: string; hero_image_desktop_url?: string }[];
   description: string[];
+  fontTitle?: string | null;
 }
-export const allEvents = fixtures as EventRecord[]
+const themeSettings: Record<string, { fontTitle: string | null }> = capturedThemes
+export const allEvents: EventRecord[] = fixtures.map(event => ({ ...event, fontTitle: themeSettings[event.slug]?.fontTitle ?? null }))
 export const popularEvents = allEvents.slice(0, 6)
 export const findEvent = (slug: string) => allEvents.find(event => event.slug === slug)
 export const eventCity = (event: EventRecord) => event.slug === 'july4-brooklyn' ? 'New York' : event.slug === '5.5' ? 'Online' : 'Tokyo'

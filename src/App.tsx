@@ -1,4 +1,5 @@
 import Hero from './Hero'
+import { EventPreviewProvider } from './EventPreviewProvider'
 import { useEffect } from 'react'
 import Discovery from './Discovery'
 import Footer from './Footer'
@@ -11,6 +12,10 @@ import { PageFooter, PageHeader } from './PageUI'
 import './pages.css'
 
 export default function App() {
+  return <EventPreviewProvider><AppRoutes /></EventPreviewProvider>
+}
+
+function AppRoutes() {
   const path = decodeURIComponent(location.pathname).replace(/\/$/, '') || '/'
   useEffect(() => {
     const event = findEvent(path.slice(1))

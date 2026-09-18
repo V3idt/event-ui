@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { categories, communities, events, majorEvents } from './discovery-data';
 import './discovery.css';
+import { EventLink } from './EventPreviewProvider';
+import { findEvent, popularEvents } from './event-data';
 
 const cities = [
   { name: 'Tokyo', slug: 'tokyo' },
@@ -124,11 +126,11 @@ export default function Discovery() {
           <div className="discovery-scroll">
             <div className="discovery-events">
               {events.map((event) => (
-                <a className="discovery-event" href={new URL(event.href).pathname} key={event.href}>
+                <EventLink className="discovery-event" event={findEvent(new URL(event.href).pathname.slice(1))!} sequence={popularEvents} key={event.href}>
                   <img className="discovery-event-cover" src={event.image} alt="" loading="lazy" width="320" height="320" />
                   <div className="discovery-event-name discovery-clamp">{event.name}</div>
                   <div className="discovery-event-date">{event.date}</div>
-                </a>
+                </EventLink>
               ))}
             </div>
           </div>
