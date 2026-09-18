@@ -81,7 +81,7 @@ export default function UiGallery() {
         <div className="gallery-component-list" aria-label="Implemented preview components"><div><span>01</span><div><code>SidePanel</code><p>Motion, focus, and scroll containment</p></div><span className="gallery-component-state">Extracted</span></div><div><span>02</span><div><code>EventPreview</code><p>Toolbar, content, and event navigation</p></div><span className="gallery-component-state">Extracted</span></div><div><span>03</span><div><code>EventLink</code><p>Preview entry and native link behavior</p></div><span className="gallery-component-state">App adapter</span></div></div>
       </section>
 
-      <section className="gallery-coverage" aria-labelledby="gallery-coverage-heading"><div><h2 id="gallery-coverage-heading">Fidelity is tracked, state by state.</h2><p>This gallery covers four captured event themes. Full theme coverage, reference comparisons, and package exports remain in progress.</p></div><div className="gallery-doc-reference"><span>Architecture & coverage plan</span><code>docs/UI-LIBRARY.md</code></div></section>
+      <section className="gallery-coverage" aria-labelledby="gallery-coverage-heading"><div><h2 id="gallery-coverage-heading">Fidelity is tracked, state by state.</h2><p>This gallery covers four captured event themes. Three components are available in the local package. Full theme coverage and reference comparisons remain in progress.</p></div><div className="gallery-doc-reference"><span>Architecture & coverage plan</span><code>docs/UI-LIBRARY.md</code></div></section>
     </main>
     <footer className="gallery-footer"><span>Shared components. Visible progress.</span><a href="/">Back to homepage <Icon name="arrow" size={14} /></a></footer>
   </div>

@@ -1,4 +1,3 @@
-export { EventBackground, eventBackgroundColor, implementedEventThemes } from './EventBackground'
-export type { EventBackgroundProps, EventBackgroundTheme } from './EventBackground'
-export { paletteColor, grainPalette } from './color'
+export { EventBackground, eventBackgroundColor, implementedEventThemes, paletteColor, grainPalette } from '@event-ui/react/backgrounds'
+export type { EventBackgroundProps, EventBackgroundTheme } from '@event-ui/react/backgrounds'
 export { eventTitleStyle, eventTitleFonts } from './event-fonts'
