@@ -4,6 +4,8 @@
 
 Made by Abel. Find me on X at [@abelasfaw0](https://x.com/abelasfaw0).
 
+The catalog loads my X profile photo by username through [Unavatar](https://unavatar.io). It refreshes without a redeploy, subject to the provider's cache. The free endpoint currently returns a 28-day cache lifetime, so photo changes may take that long to appear. Failed image loads show initials. Keep the visible Unavatar credit while using its free service. See the [provider documentation](https://unavatar.io/docs).
+
 **Start with [the component catalog](http://localhost:5173/ui).** It includes the clone's event cards, previews, backgrounds, and a growing set of basic controls.
 
 The package is a **local private alpha**. Public release still needs the [provenance review](packages/react/PROVENANCE.md).

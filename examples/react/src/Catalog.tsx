@@ -198,7 +198,13 @@ export default function Catalog({ cloneHref = 'http://localhost:5173/discover' }
         </> : page === 'installation' ? <div className="catalog-installation"><h2>1. Build the local package</h2><Code>{'npm install\nnpm run pack:lib'}</Code><h2>2. Install it in your React 19 app</h2><Code>{'npm install /path/to/artifacts/event-ui-react-0.1.0-alpha.0.tgz'}</Code><h2>3. Import a component and its styles</h2><Code>{"import { Button } from '@event-ui/react'\nimport '@event-ui/react/styles.css'\n\nexport function Register() {\n  return <Button variant=\"primary\">Register</Button>\n}"}</Code><h2>Typography</h2><p>Load your font in the application, then set the shared font token. This catalog loads the same Inter file used in the clone.</p><Code>{':root {\n  --event-ui-font-family: Inter, sans-serif;\n}'}</Code><p className="catalog-hint">This is a local alpha. Demo artwork and font files stay outside the component package.</p></div> : <>{renderComponent()}<div className="catalog-source"><Icon name="code" size={15} /><span>Based on: {selected?.source}</span></div><div className="catalog-usage-note"><h2>Make it yours</h2><p>Import from <code>@event-ui/react</code>. Pass your own content and callbacks. Shared colors and typography use <code>--event-ui-*</code> CSS variables.</p></div></>}
         <footer className="catalog-footer">
           <span>React components · TypeScript · Scoped CSS</span>
-          <a href="https://x.com/abelasfaw0" target="_blank" rel="noopener noreferrer" aria-label="Made by Abel · X (opens in a new tab)">Made by Abel · X <Icon name="arrow" size={13} /></a>
+          <div className="catalog-creator">
+            <a href="https://x.com/abelasfaw0" target="_blank" rel="noopener noreferrer" aria-label="Made by Abel · X (opens in a new tab)">
+              <Avatar src="https://unavatar.io/x/abelasfaw0?fallback=false" alt="Abel" fallback="AA" size="sm" imageProps={{ loading: 'lazy', decoding: 'async', referrerPolicy: 'no-referrer' }} />
+              <span>Made by Abel · X</span><Icon name="arrow" size={13} />
+            </a>
+            <a className="catalog-avatar-credit" href="https://unavatar.io" target="_blank" rel="noopener noreferrer">Avatar via Unavatar</a>
+          </div>
           <a href="#installation">Get started <Icon name="arrow" size={13} /></a>
         </footer>
       </main>
