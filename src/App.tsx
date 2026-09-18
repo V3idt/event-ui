@@ -1,5 +1,6 @@
 import Hero from './Hero'
 import UiGallery from './UiGallery'
+import LandingPage from './LandingPage'
 import { EventPreviewProvider } from './EventPreviewProvider'
 import { useEffect } from 'react'
 import Discovery from './Discovery'
@@ -24,6 +25,7 @@ function AppRoutes() {
     const category = categories.find(item => new URL(item.href).pathname === path)
     document.title = path === '/' || path === '/ui' ? 'Event UI' : event ? `${event.name} · Luma` : city ? `Events in ${city} · Luma` : category ? `${category.name} Events · Luma` : path.startsWith('/discover') ? 'Discover Events · Luma' : 'Luma — Delightful events start here'
   }, [path])
+  if (path === '/' && !new URLSearchParams(location.search).has('event')) return <LandingPage />
   if (path === '/' || path === '/ui') return <UiGallery />
   if (path === '/discover') return <DiscoverPage />
   if (path === '/discover/search') return <BrowsePage />
