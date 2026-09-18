@@ -110,7 +110,8 @@ body { margin: 0; background: #151515; }
 .catalog-installation { max-width: 700px; }
 .catalog-installation h2 { font-size: 17px; font-weight: 550; margin: 32px 0 14px; }
 .catalog-installation p { color: #999; margin: 10px 0 18px; font-size: 13px; line-height: 1.8; }
-.catalog-footer { display: flex; justify-content: space-between; align-items: center; gap: 20px; color: #686868; font-size: 10px; padding: 25px 0; margin-top: 45px; border-top: 1px solid var(--catalog-border); }
+.catalog-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 20px; color: #686868; font-size: 10px; padding: 25px 0; margin-top: 45px; border-top: 1px solid var(--catalog-border); }
+.catalog-footer>a:hover { color: #fff; }
 .catalog-panel-header { display: flex; align-items: center; justify-content: space-between; width: 100%; font: 500 14px Inter,sans-serif; }
 .catalog-panel-content { padding: 26px; display: flex; flex-direction: column; gap: 22px; font-family: Inter,sans-serif; }
 .catalog-panel-content h2 { font-size: 23px; font-weight: 600; letter-spacing: -.6px; line-height: 1.3; margin: 0; }

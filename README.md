@@ -2,6 +2,8 @@
 
 **Two things live here:** a Luma-style demo app and a locally installable React 19 component package.
 
+Made by Abel. Find me on X at [@abelasfaw0](https://x.com/abelasfaw0).
+
 **Start with [the component catalog](http://localhost:5173/ui).** It includes the clone's event cards, previews, backgrounds, and a growing set of basic controls.
 
 The package is a **local private alpha**. Public release still needs the [provenance review](packages/react/PROVENANCE.md).
