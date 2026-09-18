@@ -1,0 +1,157 @@
+# Use Event UI in a project
+
+Event UI provides React components for event pages, discovery, previews, forms, and animated backgrounds. Use the exported components before writing substitutes.
+
+## Read first
+
+- Target React 19 and React DOM 19. The package uses ES modules and ships TypeScript declarations.
+- TypeScript projects need matching React 19 types, `@types/react` and `@types/react-dom`.
+- This is a private alpha. It is not on npm and is marked `UNLICENSED`. Source and asset review is unfinished. Public documentation does not grant redistribution rights.
+- Use the source repository or checkout supplied by the user. If neither is accessible, request it before attempting installation. Do not invent an npm package, GitHub URL, or download endpoint.
+- Inspect the target project's router, build tool, styles, and package manager. Keep its existing conventions.
+
+## Install from source
+
+In the Event UI checkout, use Node.js 24:
+
+```sh
+npm ci
+npm run pack:lib
+```
+
+`pack:lib` prints the absolute path to the generated `.tgz` in `artifacts/`. Install that file in the target React project with its package manager:
+
+```sh
+npm install /absolute/path/printed/by/pack-library.tgz
+```
+
+Use the actual printed path. Do not copy the placeholder above unchanged. Keep React and React DOM in the consuming app; the library declares them as peer dependencies.
+
+Import the stylesheet once in the application's entry point:
+
+```tsx
+import '@event-ui/react/styles.css'
+```
+
+Use the export table and declarations below as the API reference. Import from documented package entry points only. The component catalog at <https://ui.wtw.quest/ui> shows the same components.
+
+## Start with a component
+
+This complete example uses the package's warp background, form, and button:
+
+```tsx
+import { useState, type FormEvent } from 'react'
+import { Button, Card, EventBackground, Field, Input } from '@event-ui/react'
+import '@event-ui/react/styles.css'
+
+export function EventSignup({ onJoin }: { onJoin: (email: string) => Promise<void> }) {
+  const [pending, setPending] = useState(false)
+  const [message, setMessage] = useState('')
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const email = String(new FormData(event.currentTarget).get('email') ?? '')
+    setPending(true)
+    setMessage('')
+    try {
+      await onJoin(email)
+      setMessage('You are on the list.')
+    } catch {
+      setMessage('Could not join. Please try again.')
+    } finally {
+      setPending(false)
+    }
+  }
+
+  return (
+    <section style={{ position: 'relative', isolation: 'isolate', minHeight: 420, padding: 32, color: '#fff' }}>
+      <EventBackground theme="warp" tint="#737373" mode="contained" />
+      <Card style={{ maxWidth: 360, margin: '0 auto' }}>
+        <h1>Design evenings</h1>
+        <form onSubmit={submit} style={{ display: 'grid', gap: 16 }}>
+          <Field label="Email" required>
+            <Input name="email" type="email" autoComplete="email" />
+          </Field>
+          <Button type="submit" variant="primary" loading={pending} loadingLabel="Joining...">Join the list</Button>
+          <p role="status">{message}</p>
+        </form>
+      </Card>
+    </section>
+  )
+}
+```
+
+Pass a real `onJoin` handler when using this form. The package supplies presentation; your app supplies authentication, persistence, payments, and submission behavior.
+
+## Open an event preview
+
+Keep `EventPreview` mounted while toggling `open` so its exit animation finishes. Forward every prop from `renderLink` and preserve modified clicks and native link navigation:
+
+```tsx
+import { useState } from 'react'
+import { EventCard, EventDetails, EventPreview } from '@event-ui/react'
+
+export function EventListing({ title, href, coverUrl }: { title: string; href: string; coverUrl: string }) {
+  const [open, setOpen] = useState(false)
+
+  return <>
+    <EventCard title={title} href={href} coverUrl={coverUrl}
+      renderLink={linkProps => <a {...linkProps} onClick={event => {
+        linkProps.onClick?.(event)
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+        event.preventDefault()
+        setOpen(true)
+      }} />}
+    />
+    <EventPreview open={open} onClose={() => setOpen(false)} title={title} href={href}>
+      <EventDetails title={title} coverUrl={coverUrl} presentation="preview"
+        date={{ month: 'OCT', day: 8, label: 'Thursday, October 8', time: '6:00 PM' }}
+        about={<p>An evening to share what you are making.</p>}
+      />
+    </EventPreview>
+  </>
+}
+```
+
+Supply an event URL that resolves in the consuming app. `EventPreview` opens its event-page link in a new tab by default. Set `eventLinkTarget="_self"` if the app needs same-tab navigation.
+
+## Style it
+
+The package includes scoped CSS. It does not bundle demo fonts, logos, or event photography. Load fonts and provide images from the consuming app.
+
+```css
+:root {
+  --event-ui-font-family: Inter, system-ui, sans-serif;
+  --event-ui-color: #fff;
+  --event-ui-card-background: #ffffff05;
+  --event-ui-panel-background: #232323;
+  --event-ui-panel-color: #fff;
+  --event-ui-focus: #ffffffa6;
+  --event-ui-focus-color: #ffffffa6;
+}
+```
+
+Variables inherit from their containing element. Panels portal to `document.body` by default, so put their overrides on `:root`, use panel `style`, or supply `portalContainer`. The generated token list below includes the CSS fallback values.
+
+## Interaction rules
+
+- Give `IconButton` an `aria-label`, `Avatar` an `alt`, and `Tabs` an `aria-label`. Give `Select` a `label`, `aria-label`, or `aria-labelledby`.
+- Wrap `Input` and `Textarea` in `Field` to connect labels and errors. For an explicit input ID, pass the same ID to `Field.htmlFor`.
+- `Select` and `Tabs` are controlled. Supply `value` and `onValueChange`. Checkbox and Switch use native `checked`, `defaultChecked`, and `onChange`.
+- Keep menu item IDs and option values unique. Preserve keyboard navigation, visible focus, Escape dismissal, and the overlay's return focus.
+- Put contained backgrounds inside an element with `position: relative`, `isolation: isolate`, and a nonzero height. Leave `reducedMotion` unset so it follows the operating system.
+- Modern browsers need native `dialog`, ResizeObserver, and IntersectionObserver. Animated backgrounds use Canvas or WebGL and can fall back to a static tint.
+- Server imports are supported. Panels mount after hydration. Background animations start on the client. Interactive use in a React server-component app requires a client component; framework-specific integration is not yet verified.
+
+## Verify the integration
+
+Run the consuming project's typecheck and build. Test the added UI at desktop and mobile widths. Check keyboard focus, Escape, reduced motion, form feedback, images, and event links relevant to the change.
+
+The source checkout also provides:
+
+```sh
+npm test
+npm run verify:package
+```
+
+`verify:package` installs a fresh tarball outside the workspace, then checks TypeScript, a production build, package exports, bundled assets, and server rendering. It does not verify the consuming project's backend or framework integration.

@@ -1,0 +1,850 @@
+{
+  "schemaVersion": 1,
+  "name": "@event-ui/react",
+  "version": "0.1.0-alpha.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "repository": null,
+  "documentation": "https://ui.wtw.quest/llms-full.txt",
+  "catalog": "https://ui.wtw.quest/ui",
+  "stylesheet": "@event-ui/react/styles.css",
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "apiSha256": "ceaf5b4ab7bb50689cab04284999713948dd83849c3fbf8852cbbce2ff767c26",
+  "entries": [
+    {
+      "import": "@event-ui/react",
+      "declaration": "index.d.ts",
+      "exports": [
+        {
+          "name": "Avatar",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "AvatarGroup",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "AvatarGroupProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "AvatarProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "Badge",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "BadgeProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "Button",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "ButtonProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "Card",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "CardContent",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "CardDescription",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "CardFooter",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "CardHeader",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "CardProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "CardTitle",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "Checkbox",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "CheckboxProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "DropdownMenu",
+          "kind": "value",
+          "declaration": "dropdowns/DropdownMenu.d.ts"
+        },
+        {
+          "name": "DropdownMenuItem",
+          "kind": "type",
+          "declaration": "dropdowns/DropdownMenu.d.ts"
+        },
+        {
+          "name": "DropdownMenuProps",
+          "kind": "type",
+          "declaration": "dropdowns/DropdownMenu.d.ts"
+        },
+        {
+          "name": "EventBackground",
+          "kind": "value",
+          "declaration": "backgrounds/EventBackground.d.ts"
+        },
+        {
+          "name": "eventBackgroundColor",
+          "kind": "value",
+          "declaration": "backgrounds/EventBackground.d.ts"
+        },
+        {
+          "name": "EventBackgroundProps",
+          "kind": "type",
+          "declaration": "backgrounds/EventBackground.d.ts"
+        },
+        {
+          "name": "EventBackgroundTheme",
+          "kind": "type",
+          "declaration": "backgrounds/EventBackground.d.ts"
+        },
+        {
+          "name": "EventCard",
+          "kind": "value",
+          "declaration": "events/EventCard.d.ts"
+        },
+        {
+          "name": "EventCardProps",
+          "kind": "type",
+          "declaration": "events/EventCard.d.ts"
+        },
+        {
+          "name": "EventDetails",
+          "kind": "value",
+          "declaration": "events/EventDetails.d.ts"
+        },
+        {
+          "name": "EventDetailsProps",
+          "kind": "type",
+          "declaration": "events/EventDetails.d.ts"
+        },
+        {
+          "name": "EventPreview",
+          "kind": "value",
+          "declaration": "events/EventPreview.d.ts"
+        },
+        {
+          "name": "EventPreviewLabels",
+          "kind": "type",
+          "declaration": "events/EventPreview.d.ts"
+        },
+        {
+          "name": "EventPreviewProps",
+          "kind": "type",
+          "declaration": "events/EventPreview.d.ts"
+        },
+        {
+          "name": "Field",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "FieldProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "grainPalette",
+          "kind": "value",
+          "declaration": "backgrounds/color.d.ts"
+        },
+        {
+          "name": "Icon",
+          "kind": "value",
+          "declaration": "foundations/Icon.d.ts"
+        },
+        {
+          "name": "IconButton",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "IconButtonProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "IconName",
+          "kind": "type",
+          "declaration": "foundations/Icon.d.ts"
+        },
+        {
+          "name": "IconProps",
+          "kind": "type",
+          "declaration": "foundations/Icon.d.ts"
+        },
+        {
+          "name": "implementedEventThemes",
+          "kind": "value",
+          "declaration": "backgrounds/EventBackground.d.ts"
+        },
+        {
+          "name": "Input",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "InputProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "paletteColor",
+          "kind": "value",
+          "declaration": "backgrounds/color.d.ts"
+        },
+        {
+          "name": "RegistrationCard",
+          "kind": "value",
+          "declaration": "events/EventDetails.d.ts"
+        },
+        {
+          "name": "RegistrationCardProps",
+          "kind": "type",
+          "declaration": "events/EventDetails.d.ts"
+        },
+        {
+          "name": "Select",
+          "kind": "value",
+          "declaration": "dropdowns/Select.d.ts"
+        },
+        {
+          "name": "SelectOption",
+          "kind": "type",
+          "declaration": "dropdowns/Select.d.ts"
+        },
+        {
+          "name": "SelectProps",
+          "kind": "type",
+          "declaration": "dropdowns/Select.d.ts"
+        },
+        {
+          "name": "Separator",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "SeparatorProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "SidePanel",
+          "kind": "value",
+          "declaration": "SidePanel.d.ts"
+        },
+        {
+          "name": "SidePanelProps",
+          "kind": "type",
+          "declaration": "SidePanel.d.ts"
+        },
+        {
+          "name": "Switch",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "SwitchProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "TabItem",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "Tabs",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "TabsProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "Textarea",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "TextareaProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        }
+      ]
+    },
+    {
+      "import": "@event-ui/react/panels",
+      "declaration": "panels.d.ts",
+      "exports": [
+        {
+          "name": "EventPreview",
+          "kind": "value",
+          "declaration": "events/EventPreview.d.ts"
+        },
+        {
+          "name": "EventPreviewLabels",
+          "kind": "type",
+          "declaration": "events/EventPreview.d.ts"
+        },
+        {
+          "name": "EventPreviewProps",
+          "kind": "type",
+          "declaration": "events/EventPreview.d.ts"
+        },
+        {
+          "name": "SidePanel",
+          "kind": "value",
+          "declaration": "SidePanel.d.ts"
+        },
+        {
+          "name": "SidePanelProps",
+          "kind": "type",
+          "declaration": "SidePanel.d.ts"
+        }
+      ]
+    },
+    {
+      "import": "@event-ui/react/components",
+      "declaration": "components.d.ts",
+      "exports": [
+        {
+          "name": "Avatar",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "AvatarGroup",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "AvatarGroupProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "AvatarProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "Badge",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "BadgeProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "Button",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "ButtonProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "Card",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "CardContent",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "CardDescription",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "CardFooter",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "CardHeader",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "CardProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "CardTitle",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "Checkbox",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "CheckboxProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "DropdownMenu",
+          "kind": "value",
+          "declaration": "dropdowns/DropdownMenu.d.ts"
+        },
+        {
+          "name": "DropdownMenuItem",
+          "kind": "type",
+          "declaration": "dropdowns/DropdownMenu.d.ts"
+        },
+        {
+          "name": "DropdownMenuProps",
+          "kind": "type",
+          "declaration": "dropdowns/DropdownMenu.d.ts"
+        },
+        {
+          "name": "EventCard",
+          "kind": "value",
+          "declaration": "events/EventCard.d.ts"
+        },
+        {
+          "name": "EventCardProps",
+          "kind": "type",
+          "declaration": "events/EventCard.d.ts"
+        },
+        {
+          "name": "EventDetails",
+          "kind": "value",
+          "declaration": "events/EventDetails.d.ts"
+        },
+        {
+          "name": "EventDetailsProps",
+          "kind": "type",
+          "declaration": "events/EventDetails.d.ts"
+        },
+        {
+          "name": "Field",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "FieldProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "Icon",
+          "kind": "value",
+          "declaration": "foundations/Icon.d.ts"
+        },
+        {
+          "name": "IconButton",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "IconButtonProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "IconName",
+          "kind": "type",
+          "declaration": "foundations/Icon.d.ts"
+        },
+        {
+          "name": "IconProps",
+          "kind": "type",
+          "declaration": "foundations/Icon.d.ts"
+        },
+        {
+          "name": "Input",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "InputProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "RegistrationCard",
+          "kind": "value",
+          "declaration": "events/EventDetails.d.ts"
+        },
+        {
+          "name": "RegistrationCardProps",
+          "kind": "type",
+          "declaration": "events/EventDetails.d.ts"
+        },
+        {
+          "name": "Select",
+          "kind": "value",
+          "declaration": "dropdowns/Select.d.ts"
+        },
+        {
+          "name": "SelectOption",
+          "kind": "type",
+          "declaration": "dropdowns/Select.d.ts"
+        },
+        {
+          "name": "SelectProps",
+          "kind": "type",
+          "declaration": "dropdowns/Select.d.ts"
+        },
+        {
+          "name": "Separator",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "SeparatorProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "Switch",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "SwitchProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "TabItem",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "Tabs",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "TabsProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "Textarea",
+          "kind": "value",
+          "declaration": "foundations/index.d.ts"
+        },
+        {
+          "name": "TextareaProps",
+          "kind": "type",
+          "declaration": "foundations/index.d.ts"
+        }
+      ]
+    },
+    {
+      "import": "@event-ui/react/backgrounds",
+      "declaration": "backgrounds/index.d.ts",
+      "exports": [
+        {
+          "name": "EventBackground",
+          "kind": "value",
+          "declaration": "backgrounds/EventBackground.d.ts"
+        },
+        {
+          "name": "eventBackgroundColor",
+          "kind": "value",
+          "declaration": "backgrounds/EventBackground.d.ts"
+        },
+        {
+          "name": "EventBackgroundProps",
+          "kind": "type",
+          "declaration": "backgrounds/EventBackground.d.ts"
+        },
+        {
+          "name": "EventBackgroundTheme",
+          "kind": "type",
+          "declaration": "backgrounds/EventBackground.d.ts"
+        },
+        {
+          "name": "grainPalette",
+          "kind": "value",
+          "declaration": "backgrounds/color.d.ts"
+        },
+        {
+          "name": "implementedEventThemes",
+          "kind": "value",
+          "declaration": "backgrounds/EventBackground.d.ts"
+        },
+        {
+          "name": "paletteColor",
+          "kind": "value",
+          "declaration": "backgrounds/color.d.ts"
+        }
+      ]
+    }
+  ],
+  "cssVariables": [
+    {
+      "name": "--event-ui-background",
+      "fallbacks": [
+        "#151515"
+      ]
+    },
+    {
+      "name": "--event-ui-border",
+      "fallbacks": [
+        "#ffffff0c",
+        "#ffffff14",
+        "#ffffff1c",
+        "rgb(255 255 255 / 10%)"
+      ]
+    },
+    {
+      "name": "--event-ui-card-background",
+      "fallbacks": [
+        "#ffffff05"
+      ]
+    },
+    {
+      "name": "--event-ui-color",
+      "fallbacks": [
+        "#fff"
+      ]
+    },
+    {
+      "name": "--event-ui-color-scheme",
+      "fallbacks": [
+        "dark"
+      ]
+    },
+    {
+      "name": "--event-ui-control-background",
+      "fallbacks": [
+        "#ffffff0d",
+        "#ffffff12",
+        "rgb(255 255 255 / 5%)"
+      ]
+    },
+    {
+      "name": "--event-ui-control-color",
+      "fallbacks": [
+        "#ffffffa3"
+      ]
+    },
+    {
+      "name": "--event-ui-control-hover",
+      "fallbacks": [
+        "#ffffff24",
+        "rgb(255 255 255 / 9%)"
+      ]
+    },
+    {
+      "name": "--event-ui-control-hover-background",
+      "fallbacks": [
+        "#ffffff1a"
+      ]
+    },
+    {
+      "name": "--event-ui-control-hover-color",
+      "fallbacks": [
+        "#fff"
+      ]
+    },
+    {
+      "name": "--event-ui-control-radius",
+      "fallbacks": [
+        "7px"
+      ]
+    },
+    {
+      "name": "--event-ui-focus",
+      "fallbacks": [
+        "#fff",
+        "#ffffffa6"
+      ]
+    },
+    {
+      "name": "--event-ui-focus-color",
+      "fallbacks": [
+        "#a8c7fa",
+        "#ffffffb3"
+      ]
+    },
+    {
+      "name": "--event-ui-font-family",
+      "fallbacks": [
+        "Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "Inter, sans-serif",
+        "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif"
+      ]
+    },
+    {
+      "name": "--event-ui-input-background",
+      "fallbacks": [
+        "#ffffff06"
+      ]
+    },
+    {
+      "name": "--event-ui-input-border",
+      "fallbacks": [
+        "#ffffff20"
+      ]
+    },
+    {
+      "name": "--event-ui-menu-background",
+      "fallbacks": [
+        "#232323"
+      ]
+    },
+    {
+      "name": "--event-ui-motion-duration",
+      "fallbacks": [
+        ".3s"
+      ]
+    },
+    {
+      "name": "--event-ui-motion-easing",
+      "fallbacks": [
+        "cubic-bezier(.4, 0, .2, 1)"
+      ]
+    },
+    {
+      "name": "--event-ui-muted",
+      "fallbacks": [
+        "#ffffff80"
+      ]
+    },
+    {
+      "name": "--event-ui-muted-color",
+      "fallbacks": [
+        "#ffffff80",
+        "#ffffff90",
+        "#ffffffa8"
+      ]
+    },
+    {
+      "name": "--event-ui-panel-backdrop",
+      "fallbacks": [
+        "#0009"
+      ]
+    },
+    {
+      "name": "--event-ui-panel-background",
+      "fallbacks": [
+        "#232323"
+      ]
+    },
+    {
+      "name": "--event-ui-panel-border",
+      "fallbacks": [
+        "#ffffff14"
+      ]
+    },
+    {
+      "name": "--event-ui-panel-color",
+      "fallbacks": [
+        "#fff"
+      ]
+    },
+    {
+      "name": "--event-ui-panel-mobile-radius",
+      "fallbacks": [
+        "16px",
+        "32px"
+      ]
+    },
+    {
+      "name": "--event-ui-panel-radius",
+      "fallbacks": [
+        "16px",
+        "8px"
+      ]
+    },
+    {
+      "name": "--event-ui-panel-width",
+      "fallbacks": [
+        "434px",
+        "550px"
+      ]
+    },
+    {
+      "name": "--event-ui-primary-background",
+      "fallbacks": [
+        "#fff"
+      ]
+    },
+    {
+      "name": "--event-ui-primary-color",
+      "fallbacks": [
+        "#171717"
+      ]
+    },
+    {
+      "name": "--event-ui-primary-hover",
+      "fallbacks": [
+        "#e3e3e3"
+      ]
+    },
+    {
+      "name": "--event-ui-text",
+      "fallbacks": [
+        "#fff"
+      ]
+    },
+    {
+      "name": "--event-ui-title-font-family",
+      "fallbacks": [
+        "var(--event-ui-font-family, Inter, sans-serif)"
+      ]
+    }
+  ]
+}
