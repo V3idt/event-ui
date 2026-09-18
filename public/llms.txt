@@ -4,7 +4,7 @@
 
 Package: `@event-ui/react` 0.1.0-alpha.0. Private alpha, UNLICENSED. Not published to npm. Source and asset review is unfinished.
 
-Source access is required. No public repository is configured; obtain a checkout from the maintainer before installation.
+Source repository: https://github.com/V3idt/event-ui. Follow its release status before redistribution.
 
 ## Start here
 
@@ -12,5 +12,6 @@ Source access is required. No public repository is configured; obtain a checkout
 - [Export manifest](https://ui.wtw.quest/components.json): machine-readable imports, types, peer dependencies, CSS variables, and API fingerprint.
 - [Component catalog](https://ui.wtw.quest/ui): interactive examples.
 - [Full demo](https://ui.wtw.quest/demo): homepage, discovery, event pages, and previews.
+- [Source repository](https://github.com/V3idt/event-ui): code and release status.
 
 Use the integration guide before editing a project. Read the manifest to confirm exact exports. Do not assume that an npm package or a public redistribution license exists.

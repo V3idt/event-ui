@@ -6,9 +6,10 @@
   "scripts": {
     "build:lib": "npm run build --workspace @event-ui/react",
     "dev": "vite --host 0.0.0.0",
-    "build": "npm run build:lib && tsc -b && vite build",
+    "build": "npm run build:lib && npm run build:agent-docs && tsc -b && vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "predev": "npm run build:lib",
+    "predev": "npm run build:lib && npm run build:agent-docs",
+    "build:agent-docs": "node scripts/build-agent-docs.mjs",
     "test": "npm run test --workspace @event-ui/react",
     "pack:lib": "node scripts/pack-library.mjs",
     "verify:package": "node scripts/verify-package.mjs",

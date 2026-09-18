@@ -160,7 +160,7 @@ npm run verify:package
 
 ## Source and package
 
-Source access is required. No public repository is configured; obtain a checkout from the maintainer before installation.
+Source repository: https://github.com/V3idt/event-ui. Follow its release status before redistribution.
 
 Package: `@event-ui/react` 0.1.0-alpha.0. License: `UNLICENSED`. Private: true.
 
