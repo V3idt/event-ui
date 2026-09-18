@@ -1,6 +1,6 @@
 # Source and release status
 
-**Local alpha only.** The package is `private: true` and `UNLICENSED` while provenance is reviewed. Packaging source code does not grant redistribution rights.
+**Unreleased alpha.** The package is `private: true` and `UNLICENSED` while provenance is reviewed. Hosting a demo or packaging source code does not grant redistribution rights.
 
 | Material | Origin | Before public release |
 | --- | --- | --- |

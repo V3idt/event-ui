@@ -2,7 +2,7 @@
 
 React components for event pages, discovery, and previews, inspired by Luma.
 
-[Demo (local)](http://localhost:5173/ui) · [Component docs](packages/react/README.md) · [Abel on X](https://x.com/abelasfaw0)
+[Demo](https://ui.wtw.quest) · [Component docs](packages/react/README.md) · [Abel on X](https://x.com/abelasfaw0)
 
 ## Run locally
 
@@ -21,4 +21,4 @@ npm test
 npm run verify:package
 ```
 
-Local alpha. See [release status](packages/react/PROVENANCE.md).
+Unreleased alpha. See [release status](packages/react/PROVENANCE.md).
