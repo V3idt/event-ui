@@ -1,90 +1,104 @@
-# Luma UI recreation
+# Event UI + Luma recreation
 
-A React + TypeScript recreation of the public [Luma](https://luma.com/) homepage, discovery experience, and event detail pages, inspected on September 18, 2026. Built with Vite.
+**Two things live here:** a Luma-style demo app and a locally installable React 19 component package.
 
-## Run locally
+The package exports **`SidePanel`, `EventPreview`, and `EventBackground`**. It is a private alpha—not published or licensed for public redistribution yet. See [package provenance](packages/react/PROVENANCE.md).
+
+## Run the original demo
+
+Use Node 24 and npm.
 
 ```sh
-npm install
+npm ci
 npm run dev
 ```
 
-Open the localhost URL printed by Vite (normally `http://localhost:5173`).
+Open **[localhost:5173](http://localhost:5173/)**. The dev command builds the component package first.
+
+Useful pages:
+
+- [Homepage](http://localhost:5173/)
+- [Discovery](http://localhost:5173/discover)
+- [Event preview](http://localhost:5173/tokyo?e=z6y1x5zv)
+- [Event page](http://localhost:5173/z6y1x5zv)
+- [Component gallery](http://localhost:5173/ui)
+
+## Try the package in a separate app
+
+From the repository root:
 
 ```sh
-npm run build    # TypeScript checks and production bundle
-npm run preview  # Serve the production build
+npm run example:install
+npm run example:dev
 ```
 
-## What is included
+Open **[localhost:5174/playground/](http://localhost:5174/playground/)**. This example installs the packed tarball and supplies its own content and styles.
 
-- Event-selected typography with local Inter, Roc Grotesk, Geist Mono, IvyPresto, New Spirit, and Google Sans Flex fonts.
-- Original poster artwork, responsive poster positioning, glass frames, entrance animations, and floating motion.
-- Circular hover reveals on “Create Your First Event,” cycling through Stellar, Lovely, and Vivid themes.
-- Mobile poster collage, responsive event and community grids, category cards, and a searchable city picker.
-- Animated Game of Life footer with the reference's colors, dot spacing, and layout.
-- Keyboard focus styles, reduced-motion handling, and offscreen canvas pausing.
-- Discovery directory with event rows, 12 category pages, 85 city destinations, and calendar follow state.
-- City timelines and event search, with date, city, free-entry, and saved-event filters persisted in the URL.
-- Nine event detail pages with captured cover images, host information, dates, registration status, descriptions, and location links.
-- Local saved events, share links, downloadable calendar files, cover previews, and registration/waitlist preview dialogs.
-- Event previews: desktop side panel and mobile bottom sheet, copy link, full-page link, previous/next controls, nested dialogs, and Back/Forward support that preserves filtered results.
-- Separate event backgrounds: WebGL Warp trails with chromatic distortion, cellular Life animation, WebGL Grain, and the standard tint palette. Motion pauses offscreen, in hidden tabs, or with reduced motion enabled.
-- `/ui` component playground with real backgrounds, tint and motion controls, and preview examples.
+For installation in another React 19 project, props, CSS tokens, and examples, read the **[package README](packages/react/README.md)**.
 
-Event effects use dedicated Canvas/WebGL renderers based on the inspected reference configurations. The preview intentionally uses a neutral surface, matching Luma; full-page themes animate. The homepage still has some approximated motion. Poster ordering is fixed to the captured reference, while Luma randomizes it. The city picker is simplified, event descriptions are excerpts, and location cards link to Google Maps rather than embedding it. The result is not yet a pixel-identical implementation of every interaction.
+```tsx
+import '@event-ui/react/styles.css'
+import { EventBackground, EventPreview, SidePanel } from '@event-ui/react'
+```
 
-## Scope and data
+The package includes ESM, TypeScript declarations, and scoped component styles. It does not include the demo's router, fixtures, downloaded fonts, logos, or event photos. Applications supply their own data and actions.
 
-This is a frontend implementation with a static nine-event dataset (six featured Tokyo events and three events linked from the homepage). City and category pages filter that dataset; destinations without matching fixtures show an empty state. Counts reflect the captured local dataset, not Luma's live global inventory. Dates and upcoming/past status use the browser's current clock.
+## Check the work
 
-Registration and subscription forms are explicitly labeled previews. They validate locally and never submit data, send emails, take payments, or create a real RSVP. Saved events and followed calendars persist on the current device using localStorage. No name or email is persisted.
+```sh
+npm run build           # package + demo production builds
+npm test                # component lifecycle, SSR, and hydration contracts
+npm run verify:package  # fresh tarball install + TypeScript/build/SSR checks
+```
 
-Homepage event links, discovery, categories, and cities stay in the local app. Authentication, event creation, community calendars, and original-event links still open Luma. A backend is needed for live event inventory, authentication, purchases, and real registrations.
+GitHub Actions runs these checks. See the [package QA record](reference/PACKAGE-QA.md) for browser coverage. These checks do not establish complete visual parity with Luma.
+
+## Demo features
+
+- **Homepage:** poster artwork, glass frames, hover reveals, mobile collage, city picker, and animated footer.
+- **Discovery:** event rows, 12 categories, 85 city destinations, search, and date/city/free/saved filters.
+- **Nine event pages:** covers, host details, calendar downloads, share/save actions, and registration/waitlist previews.
+- **Event previews:** desktop drawer, mobile sheet, copy link, previous/next controls, and browsing-history support.
+- **Backgrounds:** Legacy tint, Warp, Life, Grain Dark, and Grain Light. Animations support pause and reduced motion.
+
+The demo uses captured public Luma content from September 18, 2026. The [fidelity ledger](docs/UI-LIBRARY.md) tracks remaining work; [reference QA](reference/QA.md) records earlier browser checks.
 
 ## Routes
 
-- `/`: homepage.
-- `/ui`: component playground and theme inspection.
-- `/discover`: discovery directory.
-- `/discover/search`: event search and filters; accepts `q`, `city`, `date`, `free`, and `saved` query parameters.
-- `/tokyo`, `/nyc`, and other captured city slugs: city browsing.
-- `/tech`, `/running`, `/ai`, and other category slugs: category browsing.
-- `/z6y1x5zv` and the other captured event slugs: event details.
-- `?e=<event-slug>` on browsing routes: an event preview, preserving the origin route and filters. The preview's Event Page link opens the full page in a new tab, as on the reference.
-- Unknown routes: a local not-found page.
+| Route | Page |
+| --- | --- |
+| `/` | Homepage |
+| `/ui` | Demo component gallery |
+| `/discover` | Discovery directory |
+| `/discover/search` | Search; accepts `q`, `city`, `date`, `free`, `saved` |
+| `/tokyo`, `/nyc`, other captured city slugs | City browsing |
+| `/tech`, `/running`, `/ai`, other category slugs | Category browsing |
+| `/z6y1x5zv`, other captured event slugs | Event details |
+| `?e=<event-slug>` on browsing routes | Event preview |
 
-Vite serves these routes during development. A static production host must fall back to `index.html` for app routes.
+Unknown routes show a local not-found page. Static production hosts must fall back to `index.html` for app routes.
 
-## Source organization
+## Limits
 
-- `src/Hero.tsx`, `src/hero.css`, `src/hero-layout.ts`: hero, artwork layout, and hover effects.
-- `src/Discovery.tsx`, `src/discovery-data.ts`, `src/discovery.css`: event discovery and city picker.
-- `src/Footer.tsx`, `src/footer.css`: footer and dot animation.
-- `src/fonts.css`, `src/styles.css`: typography and shared styles.
-- `src/DiscoverPage.tsx`, `src/BrowsePage.tsx`: discovery, categories, cities, and filtering.
-- `src/EventPage.tsx`: event details, saved events, calendar download, and registration previews.
-- `src/EventPreviewProvider.tsx`: application navigation adapter and native event links.
-- `src/ui/index.ts`: reusable `SidePanel`, controlled `EventPreview`, and `EventBackground` exports.
-- `src/ui/backgrounds`: animation renderers, color palette, and event-selected font metadata.
-- `src/UiGallery.tsx`: component playground using the same components as the app.
-- `src/PageUI.tsx`, `src/pages.css`: shared navigation, dialogs, controls, and page styling.
-- `src/event-fixtures.json`, `src/directory-fixtures.json`: captured public fixture data.
-- `scripts/capture-events.py`: optional refresh script for public event metadata and artwork; requires Python 3 and curl.
+- Data is static. City/category pages filter nine fixtures; some destinations are empty. Upcoming/past status follows the browser clock.
+- Registration and subscriptions are local previews. No RSVP, email, authentication, or payment is submitted. Saved/followed state uses localStorage; names and emails are not stored.
+- Authentication, creation, community calendars, and original-event links still open Luma.
+- Some motion, maps, descriptions, guest lists, and controls remain simplified. Grain Light lacks a captured event comparison. The full 43-theme inventory is not implemented.
+- Source-derived renderers and the bundled grain texture require provenance review before public release. Demo assets require a separate review.
 
-Reference assets are stored under `public/assets`. Poster/photo originals came from `https://images.lumacdn.com/landing/{c,e}01.webp` through `{c,e}21.webp`; discovery, category, and event artwork came from the public image URLs rendered by Luma. Tokyo's backdrop is local; other city backdrops load from the captured Luma image URLs. The wordmark is the reference SVG. Fonts were sourced from the stylesheets served by the reference.
+## Where to work
 
-## UI library direction
+| Path | Purpose |
+| --- | --- |
+| `packages/react/src` | Reusable components, scoped styles, background renderers |
+| `packages/react/test` | Component contract tests |
+| `examples/react` | Independent package consumer |
+| `src/ui` | Demo re-exports, event fonts, reference metadata, and content styling |
+| `src/EventPreviewProvider.tsx` | Demo navigation and preview selection |
+| `src/EventPage.tsx` | Demo event content and local actions |
+| `src/Hero.tsx`, `src/Discovery.tsx`, `src/Footer.tsx` | Homepage |
+| `src/DiscoverPage.tsx`, `src/BrowsePage.tsx` | Discovery and filtering |
+| `src/*-fixtures.json`, `public/assets` | Captured demo data and assets |
+| `docs/UI-LIBRARY.md` | Expansion plan and fidelity ledger |
 
-Read [docs/UI-LIBRARY.md](docs/UI-LIBRARY.md) for component boundaries, the 43-theme source inventory, state coverage, evidence requirements, and package release gates. The current `src/ui` exports are an internal library foundation; the full app is not yet a distributable package. The four captured theme families are implemented, while the rest of the source catalog remains tracked work. Grain Light shares a renderer but has not been visually checked against a captured event.
-
-```tsx
-import { EventBackground, EventPreview } from './ui'
-
-<EventBackground theme="warp" tint="#120404" mode="contained" seed={1729} />
-<EventPreview open={open} title={event.name} href={event.href} onClose={close}>
-  {eventContent}
-</EventPreview>
-```
-
-A contained background needs an ancestor with `position: relative` and `isolation: isolate`. Runtime asset paths currently resolve from `/assets`; configurable assets and publishable packaging are explicit remaining library work.
+Reference imagery, branding, and fonts came from the public pages and asset URLs served by [Luma](https://luma.com/). `scripts/capture-events.py` can refresh the nine public event fixtures; it requires Python 3 and curl.

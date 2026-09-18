@@ -1,18 +1,28 @@
 # UI library and fidelity plan
 
-Audit date: September 18, 2026. Scope: the public homepage, discovery directory, city/category browsing, event previews, and event detail pages. This is an implementation plan and coverage ledger, not a claim that every item below is implemented or visually verified.
+Updated: September 18, 2026. Scope: the public homepage, discovery directory, city/category browsing, event previews, and event detail pages. This is an implementation plan and coverage ledger, not a claim that every item below is implemented or visually verified.
+
+**Current milestone:** three components are extracted into the locally installable `@event-ui/react` package. It is a **private alpha**, with public licensing and provenance work still open. Start with the [package API guide](../packages/react/README.md) or the [repository quickstart](../README.md).
 
 The library should reproduce a **versioned, recorded set of Luma states**. “Perfect copy” is an acceptance criterion for that set, not something a homepage screenshot or successful build proves. The live reference changes its events, dates, randomized artwork, and themes. Unknown states remain visible in the ledger until captured; they must not quietly become generic substitutes.
 
-## What the audit found
+## Current implementation
 
-The original event implementation had two specific omissions: `WarpBackdrop` drew one static frame, and every other theme used the same tinted, blurred cover. Event links navigated directly to a page instead of opening the intermediate event preview. Those are separate motion and interaction defects. Corrections to those two areas are being developed alongside this document; they need their own reference comparisons before being marked verified.
+The original omissions have been addressed in code: event pages now use distinct Legacy, Warp, Life, and Grain renderers, and event links can open an intermediate preview. [Recorded browser checks](../reference/QA.md) cover selected layouts and interactions. Exact transition motion, all responsive states, and full reference parity remain open.
 
-The first library extraction now exists in code: `src/ui/SidePanel.tsx` provides a controlled native-dialog panel with desktop/mobile transitions, focus restoration, and page scroll locking; `src/ui/events/EventPreview.tsx` composes its toolbar and content. The app-level `EventPreviewProvider`/`EventLink` adapter owns selection and URL handling, and `EventPage` supports a preview presentation. Background renderer modules are being added under `src/ui/backgrounds/`. These pieces are **implemented/in progress**, not published package exports or proof of complete reference parity. History restoration, filtered event sequences, nested dialogs, and exit cleanup require integration checks.
+| Alpha component | Implementation | Configuration |
+| --- | --- | --- |
+| `SidePanel` | `packages/react/src/SidePanel.tsx` | Controlled open/close, toolbar/content slots, styling, portal container |
+| `EventPreview` | `packages/react/src/events/EventPreview.tsx` | Content, links, translated labels, previous/next callbacks, copy adapter |
+| `EventBackground` | `packages/react/src/backgrounds/` | Theme, tint, appearance, seed, pause/reduced motion, optional grain texture |
+
+The package builds ESM, TypeScript declarations, and an explicit stylesheet. React 19 and React DOM are peer dependencies. `examples/react` installs the tarball and serves under `/playground/`; `npm run verify:package` checks a fresh installation, strict TypeScript, production build, exports/assets, and Node SSR. `npm test` covers SSR/hydration, controlled behavior, scroll/focus cleanup, nested locks, and animation lifecycle. These are functional contracts, not visual comparison results.
+
+The demo imports the package through thin `src/ui` adapters. `EventPreviewProvider`/`EventLink` still own selection and URL/history handling. Fixture data, formatting, fonts, registration previews, storage, and event-specific content styles remain in the app. The package has no dependency on the demo's `/assets` paths or nine-event dataset. Its bundled grain texture and source-derived renderers still require the [provenance review](../packages/react/PROVENANCE.md).
 
 The existing nine fixtures contain six `legacy` events and one each of `warp`, `life`, and `grain-dark`. Theme configuration is larger than a background name: the inspected reference registry also defines title fonts, light/dark behavior, high-contrast surfaces, cover treatment, liquid glass, and tint behavior. For example, its defaults specify Roc Grotesk for Warp, Geist Mono for Life, and Futura for Grain. An event's own explicit settings may override defaults. Applying Roc Grotesk and a dark palette to every event loses these details.
 
-The current application is a good extraction starting point, but is not yet a distributable component library. Components read global `location`, `history`, the current clock, and localStorage; event formatting and examples are tied to a nine-event fixture set; CSS uses global element selectors; assets use `/assets/...` root paths. A reusable library must make those dependencies explicit.
+Further components remain app-specific. Extract them with explicit data, routing, clock, asset, and storage boundaries. The three alpha components establish that boundary; they do not make the rest of the application a reusable library automatically.
 
 ## Source of truth and evidence
 
@@ -24,7 +34,9 @@ Maintain a reference manifest with one row per route, theme, component variant, 
 - Status: `uncaptured`, `captured`, `implemented`, `verified`, or `known-difference`; owner and evidence links. A build or a self-comparison cannot promote a row to `verified`.
 - Any permitted difference with a concrete reason. An unknown duration, spring, radius, or breakpoint is recorded as unknown instead of filled with an arbitrary value.
 
-Reference entry points are [the homepage](https://luma.com/), [discovery](https://luma.com/discover), [Tokyo](https://luma.com/tokyo), and the event URLs listed below. The first inspection's temporary evidence lives in `/tmp/luma-reference/`: `home.html`, `discover.html`, `event.html`, `event-data.json`, `browser-details.json`, `hero-layout-notes.md`, and the public JavaScript/CSS files. That directory is temporary; preserve a small durable evidence manifest and permitted screenshots/measurements in `reference/` before relying on it for future releases.
+Reference entry points are [the homepage](https://luma.com/), [discovery](https://luma.com/discover), [Tokyo](https://luma.com/tokyo), and the event URLs listed below. Durable selected screenshots and measurements are in [`reference/QA.md`](../reference/QA.md) and `reference/qa/`; theme observations are in [`src/ui/backgrounds/REFERENCE.md`](../src/ui/backgrounds/REFERENCE.md). These records predate package extraction and do not cover every state. Extend them into a complete manifest before declaring parity.
+
+The original inspection also used `/tmp/luma-reference/` for HTML, metadata, layout notes, and public JavaScript/CSS. Temporary files are not a durable evidence dependency; preserve permitted measurements and provenance in the repository before relying on them for a release.
 
 The inspected theme registry is in the captured `2vrnqe5_1qozw.js` (`let b={legacy:...}`). It establishes available theme IDs/defaults, not proof that all variants have been visually inspected. Preserve extracted configuration and provenance rather than shipping the reference application's compiled bundle as the library.
 
@@ -46,17 +58,17 @@ Registration state is not permanently determined by an event's date on the live 
 
 ## Component boundaries
 
-Continue the extraction started under `src/ui/`, keeping the working app as the integration example. Extract one verified component at a time. Move to a workspace package after the public interfaces stabilize; a monorepo migration is not required to fix fidelity.
+Continue extraction in `packages/react/src`, keeping the demo as the integration example and the tarball consumer as the portability check. The table below is the expansion catalog. Only `SidePanel`, `EventPreview`, and `EventBackground` are current package components; the remaining names describe planned boundaries.
 
 | Layer | Public components/modules | Current extraction source | Required responsibility |
 | --- | --- | --- | --- |
 | Foundations | `ThemeProvider`, tokens, typography, icons, motion clock | `fonts.css`, `styles.css`, `PageUI.tsx` | Scope styles; resolve event theme; supply asset URLs, locale, and clock |
 | Primitives | `Button`, `IconButton`, `Link`, `Badge`, `Avatar`, `AvatarStack`, `Input`, `Select`, `Tabs`, `Divider`, `Skeleton` | `PageUI.tsx`, `pages.css`, `discovery.css` | Visual variants, state styling, keyboard behavior; no fixture imports |
-| Surfaces | `Card`, `GlassSurface`, `Dialog`, `Popover`, `Drawer`, `Tooltip`, `Toast` | `Modal` and card styles | Portal/layer order, focus, dismissal, scrolling, animation lifecycle |
+| Surfaces | `SidePanel` now; `Card`, `GlassSurface`, `Dialog`, `Popover`, `Tooltip`, `Toast` planned | Package `SidePanel`; app `Modal` and card styles | Portal/layer order, focus, dismissal, scrolling, animation lifecycle |
 | Event summaries | `EventCard`, `CompactEventRow`, `TimelineEventCard`, `EventTimeline` | `Discovery.tsx`, `DiscoverPage.tsx`, `BrowsePage.tsx` | Share data model; preserve each reference presentation rather than forcing one card layout |
 | Event presentation | `EventCover`, `EventHeader`, `EventFacts`, `HostList`, `GuestPreview`, `RegistrationPanel`, `EventDescription`, `EventLocation`, `EventActions` | `EventPage.tsx` | Same content in full page and preview; explicit density/layout variants |
-| Event navigation | `EventPreviewProvider`, `EventLink`, `EventPreview`, `EventPageLayout` | Event links and the preview implementation | Open/close/expand; preserve origin route, scroll, focus, and native link semantics |
-| Event themes | `EventTheme`, `EventBackground`, theme renderer registry | Event background implementation | Typed configuration; tint/fonts/surfaces/cover treatment plus animation |
+| Event navigation | `EventPreview` now; provider/link/layout adapters remain app-specific | Package preview; app `EventPreviewProvider` and `EventPage` | Open/close/expand; preserve origin route, scroll, focus, and native link semantics |
+| Event themes | `EventBackground` now; `EventTheme` and full configuration resolver planned | Package renderers; app font/theme metadata | Typed configuration; tint/fonts/surfaces/cover treatment plus animation |
 | Discovery | `CategoryTile`, `CalendarCard`, `CityTile`, `CityPicker`, `ContinentTabs`, `BrowseFilters`, `DirectorySection` | `Discovery.tsx`, `DiscoverPage.tsx`, `BrowsePage.tsx` | Controlled filters and selection; explicit loading/empty/error states |
 | Site composition | `SiteHeader`, `SiteFooter`, `LandingHero`, `PosterField`, `ThemeReveal`, `FooterLife` | `Hero.tsx`, `Footer.tsx`, `PageUI.tsx` | Marketing-specific layout remains separate from event primitives |
 
@@ -73,7 +85,7 @@ Two components can look different while sharing behavior. In particular, a cente
 - Theme names use a discriminated union with validated parameters. Unknown IDs produce an explicit development warning and documented fallback, not silent “verified” support.
 - Portal containers, stacking order, and body scroll locking support nested overlays. Only the uppermost dismissible overlay consumes Escape.
 
-Illustrative interface, to refine after the preview behavior is measured:
+**Future API sketch—not implemented exports.** The current supported props are in the [package README](../packages/react/README.md).
 
 ```tsx
 <UiProvider assets={assets} locale="en-US" now={clock.now}>
@@ -94,7 +106,7 @@ The example describes the proposed package API. The app already has an `EventPre
 
 ## Tokens and theme resolution
 
-Use semantic CSS custom properties under `[data-luma-ui]` plus TypeScript types generated from the same token source. Do not ship the app's universal reset on import. Separate:
+The alpha uses scoped component CSS and configurable `--event-ui-*` tokens for panels and controls. It does not import the app's universal reset. A shared semantic token source, generated types, and full event-theme resolution remain planned. Separate:
 
 1. Foundation values: reference color ramps, spacing, radii, typography metrics, shadows, borders, blur, z-index, and motion curves.
 2. Semantic roles: page/surface/raised surface; text/secondary/tertiary; border/hover/focus; primary action/destructive/disabled.
@@ -109,7 +121,7 @@ The present homepage CSS uses a 600ms reveal with a shared curve; that differenc
 
 ## Theme coverage
 
-The captured registry contains 43 theme IDs. Only four IDs occur in the current event fixtures; finding a name in source does not count as rendering it correctly. The initial supported event-theme milestone is those four. A library claiming the full captured Luma theme catalog must close every row below, including parameters within each family.
+The captured registry contains **43 theme IDs**. The alpha renders **five variants across four families**: `legacy`, `warp`, `life`, `grain-dark`, and `grain-light`. Four IDs occur in captured event fixtures; Grain Light is implemented from inspected configuration but lacks a captured event comparison. Finding a name in source does not establish visual support. A library claiming the full catalog must close every row below, including each family's configuration variants.
 
 | Family | Captured IDs | Additional configuration/verification |
 | --- | --- | --- |
@@ -126,7 +138,7 @@ The captured registry contains 43 theme IDs. Only four IDs occur in the current 
 | Illustrated/holiday | `floral`, `holiday-diwali`, `holiday-pie`, `holiday-foliage`, `holiday-turkey`, `holiday-santa`, `holiday-sweater`, `holiday-hanukkah` | Artwork composition, font, cover frame, tint constraints |
 | Games | `tamagotchi`, `snake` | Game state/input if publicly exposed, typography, animation and fallback |
 
-All additional families are inventory items until their rendered behavior is captured. Do not spend time recreating every name by guesswork before verifying the four themes already present on the requested pages.
+Families without an alpha renderer remain inventory items until their behavior is captured and implemented. Verify the existing families before filling additional names with guessed effects.
 
 ## State matrix
 
@@ -161,7 +173,7 @@ The intermediate preview is part of the navigation model, not just a different c
 
 ## Visual and motion verification
 
-Add a local component catalog before publishing. It should show every supported variant and state, include controls for long content and theme settings, and link every reference-backed story to its evidence row. A small route inside this Vite app is sufficient initially; a dedicated documentation tool can follow after the API stabilizes.
+The demo `/ui` gallery and independent `/playground/` consumer already provide local inspection surfaces. Expand them to cover every supported variant and state, including long content, theme controls, and evidence links. They are not yet a complete reference-backed story catalog. A dedicated documentation tool can follow as the API stabilizes.
 
 For repeatable captures, inject fixture time (`2026-09-18T06:00:00Z` is a useful initial baseline), locale/timezone, a seeded random source, and a manual animation clock. Motion components should support `seek(ms)`, pause/resume, and disposal in the test harness without making production animations global. Wait for `document.fonts.ready`, image decode, and stable layout before capture. Do not hide the actual effect in order to make screenshot tests pass.
 
@@ -181,29 +193,29 @@ Store reviewed baselines, overlays/diffs, short motion clips, and a machine-read
 
 These remain open until evidence closes them, even if the app builds:
 
-- Preview and event-theme corrections need reference comparisons across their transitions and mobile variants; the original implementation omitted them.
-- Theme-specific font/mode/glass/cover settings are not fully represented by the original `theme`/`tint` fixtures. Four fixture theme IDs do not establish support for the 43-theme catalog.
+- Selected preview geometry, interactions, and animation behavior have recorded checks. Full transition comparisons, mobile variants, and package-extraction visual regression baselines remain incomplete.
+- The demo applies captured event title fonts, while the package leaves fonts to its consumer. Full theme mode, glass, cover treatment, and override resolution remain incomplete. Four fixture theme IDs do not establish support for the 43-theme catalog.
 - Homepage WebGL, emoji styling, poster randomization, continuous float equations, reveal timing, and material/refraction remain approximations or require re-verification.
 - Event descriptions are excerpts; maps are illustrative links rather than the reference map; guest faces/lists and host interactions are simplified. Those substitutions change both layout and interactions.
 - Registration and subscriptions are explicit local previews. Authentication, ticket/payment states, real RSVP results, and backend error/loading states are not implemented.
 - Nine events do not reproduce live counts or inventory. Category descriptions and most city behavior are generic; many destinations have no local events. City grouping currently uses event-specific shortcuts.
 - Header/search, compact footer icons, city picker, filters, tabs, and dialogs need state-by-state reference audits. Native HTML controls alone do not establish reference styling or keyboard parity.
 - Some routes intentionally navigate to the original site. Calendar/community pages, account screens, creation flows, and native apps are outside the selected page scope; crossing that boundary must be visible in the catalog.
-- Asset URLs, root-relative fonts, global CSS, storage coupling, and global clock/router usage prevent a clean package consumer contract today.
-- No durable screenshot/motion baseline corpus, full state manifest, component catalog, or package-consumer test exists yet. “No missing details” cannot be verified until these are in place.
+- The three package components are independent of demo assets, fonts, fixtures, storage, and routing. Further app components still need these dependencies separated before extraction.
+- Selected durable screenshots, local galleries, and package-consumer tests exist. A complete reference-state manifest, reviewed screenshot/motion baseline corpus, and automated reference comparison suite do not.
+- Public release is blocked on provenance and license decisions. Source-derived renderers and the bundled grain texture require review or replacement; demo reference assets require a separate review.
 
 ## Delivery sequence and release gates
 
 Keep commits atomic, as required by the global `AGENTS.md`. Each commit should have one reviewable purpose and its relevant evidence.
 
-1. **Repair the observed omissions:** distinct backgrounds for the four fixture themes and faithful event preview navigation. Verify each against reference motion and layout. This is the immediate product correction.
-2. **Lock reference fixtures:** preserve theme settings, font choices, relevant content and assets; create the manifest, missing-state ledger, and deterministic clock/seed harness. Resolve initial comparison drift before extraction.
-3. **Extract foundations and overlays:** scoped tokens, icons, typography, buttons, surfaces, dialog/drawer lifecycle. Keep existing pages rendering through the new primitives and compare after each extraction.
-4. **Extract event components:** use the same event content and theme rendering in preview and full-page layouts; move navigation/storage/registration actions to adapters. Add all supported theme and registration stories.
-5. **Extract discovery and marketing:** shared cards/timeline/filters and the landing components. Preserve their distinct visual variants. Add responsive and motion evidence for each.
-6. **Expand theme coverage deliberately:** capture and implement the additional catalog families. A family remains experimental until its variants, settings, font/cover treatment, and lifecycle pass review.
-7. **Package and verify consumption:** produce ESM, TypeScript declarations, explicit CSS exports, and separate optional theme chunks. React/ReactDOM become peer dependencies. Import a built package into a clean consumer, serve under a non-root base path, test SSR import safety, and verify fonts/assets and tree-shaking.
+1. **Alpha extraction—implemented:** three components, scoped styles, ESM/declarations, React peers, SSR/hydration tests, independent tarball consumer, and CI. Run `npm run build`, `npm test`, and `npm run verify:package` after package changes.
+2. **Reference coverage—incomplete:** preserve full theme settings, font choices, permitted assets, state manifests, and a deterministic clock/seed harness. Extend selected existing checks into repeatable visual/motion comparisons.
+3. **Public release preparation—open:** review source-derived code and the grain texture; replace or obtain permission where needed. Choose the public name and license. Review repository history before sharing demo material.
+4. **More foundations and event components—planned:** extract controls, surfaces, cards, facts, hosts, and registration presentation. Keep routing/storage/registration actions in adapters and add state stories alongside each component.
+5. **Discovery and marketing—planned:** extract timelines, filters, directory tiles, and landing components while preserving their distinct layouts. Add responsive and motion evidence.
+6. **Additional theme families—planned:** capture and implement deliberately. A family remains experimental until its variants, settings, font/cover treatment, and lifecycle pass review.
 
-Suggested export boundaries are `@project/luma-ui`, `@project/luma-ui/styles.css`, `@project/luma-ui/themes`, and `@project/luma-ui/landing`; the package name is a placeholder. Keep sample content and reference branding/assets in the demo or a separate asset bundle with a provenance/license manifest. Avoid implicitly bundling the entire poster gallery and every animation when a consumer imports a button.
+Current import boundaries are `@event-ui/react`, `@event-ui/react/panels`, `@event-ui/react/backgrounds`, and `@event-ui/react/styles.css`. The package name is provisional. Event fonts, sample content, branding, and reference artwork stay in the demo; the alpha's grain texture is documented separately in its provenance manifest. Separate per-theme lazy-loading and broader tree-shaking budgets can follow; a dedicated landing export does not exist yet.
 
 Mark an initial release as preview/experimental until its declared component/state matrix is verified. A stable release needs zero untriaged discrepancies in its declared scope, a published supported-theme list, complete controlled-state APIs, keyboard/mobile verification, package-consumer checks, and visual/motion baselines. Additional Luma states discovered later become new manifest rows and cannot inherit a verified badge from a similar-looking component.
