@@ -1,4 +1,5 @@
 import Hero from './Hero'
+import UiGallery from './UiGallery'
 import { EventPreviewProvider } from './EventPreviewProvider'
 import { useEffect } from 'react'
 import Discovery from './Discovery'
@@ -21,8 +22,9 @@ function AppRoutes() {
     const event = findEvent(path.slice(1))
     const city = cityFromSlug(path.slice(1))
     const category = categories.find(item => new URL(item.href).pathname === path)
-    document.title = event ? `${event.name} · Luma` : city ? `Events in ${city} · Luma` : category ? `${category.name} Events · Luma` : path.startsWith('/discover') ? 'Discover Events · Luma' : 'Luma — Delightful events start here'
+    document.title = path === '/ui' ? 'UI Library · Luma' : event ? `${event.name} · Luma` : city ? `Events in ${city} · Luma` : category ? `${category.name} Events · Luma` : path.startsWith('/discover') ? 'Discover Events · Luma' : 'Luma — Delightful events start here'
   }, [path])
+  if (path === '/ui') return <UiGallery />
   if (path === '/discover') return <DiscoverPage />
   if (path === '/discover/search') return <BrowsePage />
   const event = findEvent(path.slice(1))
