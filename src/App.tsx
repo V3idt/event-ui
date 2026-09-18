@@ -10,7 +10,7 @@ import BrowsePage from './BrowsePage'
 import EventPage from './EventPage'
 import { cityFromSlug, findEvent } from './event-data'
 import { categories } from './discovery-data'
-import { PageFooter, PageHeader } from './PageUI'
+import Brand from '../examples/react/src/Brand'
 import './pages.css'
 
 export default function App() {
@@ -23,7 +23,7 @@ function AppRoutes() {
     const event = findEvent(path.slice(1))
     const city = cityFromSlug(path.slice(1))
     const category = categories.find(item => new URL(item.href).pathname === path)
-    document.title = path === '/' || path === '/ui' ? 'Event UI' : event ? `${event.name} · Luma` : city ? `Events in ${city} · Luma` : category ? `${category.name} Events · Luma` : path.startsWith('/discover') ? 'Discover Events · Luma' : 'Luma — Delightful events start here'
+    document.title = path === '/' || path === '/ui' ? 'UI · React components' : event ? `${event.name} · Luma` : city ? `Events in ${city} · Luma` : category ? `${category.name} Events · Luma` : (path === '/discover' || path === '/discover/search') ? 'Discover Events · Luma' : path === '/demo' ? 'Luma — Delightful events start here' : 'Page not found · UI'
   }, [path])
   if (path === '/' && !new URLSearchParams(location.search).has('event')) return <LandingPage />
   if (path === '/' || path === '/ui') return <UiGallery />
@@ -35,7 +35,7 @@ function AppRoutes() {
   if (city) return <BrowsePage city={city} />
   const category = categories.find(item => new URL(item.href).pathname === path)
   if (category) return <BrowsePage category={category.name} />
-  if (path !== '/demo') return <div className="inner-page"><PageHeader /><main className="empty-state"><h1>Page not found</h1><p>This page isn’t available.</p><a className="ui-button primary" href="/discover">Discover Events</a></main><PageFooter /></div>
+  if (path !== '/demo') return <div className="home home-not-found"><header className="home-header"><a className="home-brand" href="/" aria-label="UI home"><Brand /></a><nav aria-label="Main navigation"><a href="/ui">Components</a></nav></header><main className="home-not-found-content"><span className="home-kicker">404</span><h1>Nothing here yet.</h1><p>This page could not be found.</p><a className="home-browse" href="/">Back to home</a></main></div>
   return (
     <div className="page">
       <main>

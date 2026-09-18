@@ -1,6 +1,6 @@
-# Event UI
+# UI
 
-React components for event pages, discovery, and previews, inspired by Luma.
+React components for cards, buttons, forms, menus, panels, and animated backgrounds.
 
 [Demo](https://ui.wtw.quest) · [Component docs](packages/react/README.md) · [Abel on X](https://x.com/abelasfaw0)
 

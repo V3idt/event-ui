@@ -1,7 +1,7 @@
 {
   "name": "@event-ui/react",
   "version": "0.1.0-alpha.0",
-  "description": "Clone-derived React foundations, event cards, dropdowns, previews, and animated backgrounds. Local alpha.",
+  "description": "React components for cards, buttons, forms, menus, panels, and animated backgrounds. Local alpha.",
   "private": true,
   "license": "UNLICENSED",
   "type": "module",

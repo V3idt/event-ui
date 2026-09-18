@@ -1,6 +1,6 @@
 # Component catalog and independent consumer
 
-**One catalog, two entry points:**
+The catalog shows general React components with working previews and code examples.
 
 - `http://localhost:5174/playground/` tests the installed tarball.
 - `http://localhost:5173/ui` uses the same catalog with the workspace package.
@@ -12,24 +12,16 @@ npm run example:install
 npm run example:dev
 ```
 
-Open **[localhost:5174/playground/](http://localhost:5174/playground/)**.
+Open [localhost:5174/playground/](http://localhost:5174/playground/).
 
-Try:
+Try cards, buttons, forms, menus, tabs, profile images, and status badges. Explore all five backgrounds, tint settings, pause, and side panels. Panels become bottom sheets at 450px and below. Event layouts remain optional reference recipes.
 
-- Buttons, cards, badges, avatars, fields, checkboxes, switches, and tabs.
-- Selects and action menus, including keyboard navigation.
-- Timeline and compact event cards → preview → full event page.
-- Registration cards and the local registration form.
-- All five backgrounds, tint settings, pause, and side panels.
+`Catalog.tsx` imports the package components. The root `/ui` route uses the same file. Vite and TypeScript resolve one package and React instance.
 
-The side panel becomes a bottom sheet at 450px and below. Each component page includes a usage example.
+## Assets and verification
 
-**Appearance comes from the clone.** The catalog loads its Inter, Roc Grotesk, and Geist Mono fonts, four event covers, available host avatars, and wordmark from `src/assets`.
+Demo fonts, photos, and reference artwork live in `src/assets`. They stay outside `@event-ui/react`; consumers supply their own content and fonts. Review [provenance](../../packages/react/PROVENANCE.md) before redistributing demo assets.
 
-Those files are demo assets. They are excluded from `@event-ui/react`; consumers supply their own fonts, artwork, data, and actions. Review [provenance](../../packages/react/PROVENANCE.md) before sharing them publicly.
+The footer photo uses [Unavatar](https://unavatar.io). The free endpoint caches photos and requires visible provider credit. Image failures show initials.
 
-The footer photo follows `@abelasfaw0` through [Unavatar](https://unavatar.io). Its free endpoint currently caches photos for 28 days. Keep the visible provider credit while using the free service; image failures show initials.
-
-`Catalog.tsx` imports package components. It does not import the clone's app components or fixture modules. The root `/ui` route imports this catalog; its Vite and TypeScript settings resolve one workspace package and React instance.
-
-`npm run verify:package` copies this app to a temporary directory outside the repository, installs the tarball, checks TypeScript, builds under `/playground/`, and verifies server rendering. This checks portability; full visual parity with Luma remains unfinished.
+`npm run verify:package` installs a fresh tarball outside the repository, checks TypeScript, builds under `/playground/`, and verifies server rendering. Visual comparisons for the original Luma demo remain separate, unfinished work.

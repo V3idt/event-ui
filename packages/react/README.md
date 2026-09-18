@@ -1,8 +1,10 @@
-# Event UI · local alpha
+# UI · local alpha
 
-React components extracted from the Luma recreation: everyday controls, event cards, previews, and animated backgrounds.
+React components for cards, buttons, forms, menus, panels, and animated backgrounds. Compose them around your content and app.
 
 **Status:** installable locally. Not published or licensed for public redistribution yet. Read [PROVENANCE.md](./PROVENANCE.md) before releasing it.
+
+`@event-ui/react`, `EventBackground`, and `--event-ui-*` are retained technical names. The general components work across React projects.
 
 ## Install
 
@@ -23,7 +25,7 @@ Import the stylesheet once:
 
 ```tsx
 import '@event-ui/react/styles.css'
-import { Button, EventCard, EventPreview } from '@event-ui/react'
+import { Button, Card, SidePanel } from '@event-ui/react'
 ```
 
 ES modules and TypeScript declarations are included. React and React DOM are peer dependencies. Modern browsers with native `<dialog>`, ResizeObserver, and IntersectionObserver are required. Animated themes use Canvas or WebGL.
@@ -36,10 +38,10 @@ ES modules and TypeScript declarations are included. React and React DOM are pee
 | Surfaces and identity | `Card` and its slots, `Badge`, `Avatar`, `AvatarGroup`, `Separator` |
 | Forms | `Field`, `Input`, `Textarea`, `Checkbox`, `Switch`, `Select` |
 | Navigation | `Tabs`, `DropdownMenu` |
-| Events | `EventCard`, `EventDetails`, `RegistrationCard` |
-| Overlays and themes | `SidePanel`, `EventPreview`, `EventBackground` |
+| Panels and backgrounds | `SidePanel`, `EventBackground` |
+| Optional event recipes | `EventCard`, `EventDetails`, `RegistrationCard`, `EventPreview` |
 
-The demo catalog uses these exports. Its event cards and preview content use the shared event components.
+The component catalog uses these same exports.
 
 ## Everyday components
 
@@ -59,12 +61,12 @@ These foundations accept native HTML props, `className`, `style`, and React 19 r
 ```tsx
 <Card>
   <CardHeader>
-    <CardTitle>Design evenings</CardTitle>
-    <CardDescription>A monthly gathering for designers.</CardDescription>
+    <CardTitle>Design workspace</CardTitle>
+    <CardDescription>Share drafts and collect feedback.</CardDescription>
   </CardHeader>
   <CardFooter>
-    <Button variant="primary">Subscribe</Button>
-    <IconButton aria-label="Share calendar"><Icon name="share" /></IconButton>
+    <Button variant="primary">Open workspace</Button>
+    <IconButton aria-label="Share workspace"><Icon name="share" /></IconButton>
   </CardFooter>
 </Card>
 ```
@@ -76,14 +78,14 @@ Card slots: `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFo
 `Field` generates IDs and connects its label, description, and error to an `Input` or `Textarea`. Use `htmlFor` when supplying your own input ID.
 
 ```tsx
-<Field label="Email address" description="We'll send your ticket here." required>
+<Field label="Email address" description="We'll send updates here." required>
   <Input name="email" type="email" placeholder="you@example.com" />
 </Field>
 <Field label="Message" error={messageError}>
   <Textarea name="message" />
 </Field>
 <Checkbox name="updates" label="Email updates" defaultChecked />
-<Switch label="Event reminders" checked={reminders} onChange={event => setReminders(event.target.checked)} />
+<Switch label="Notifications" checked={notifications} onChange={event => setNotifications(event.target.checked)} />
 ```
 
 `Input` and `Textarea` accept native input props plus `invalid`. `Checkbox` and `Switch` use native checkbox state, keyboard interaction, and form submission; both accept `label` and `description`.
@@ -91,9 +93,9 @@ Card slots: `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFo
 `Tabs` is controlled. Supply `value`, `onValueChange`, `aria-label`, and `items`:
 
 ```tsx
-<Tabs aria-label="Events" value={tab} onValueChange={setTab} items={[
-  { value: 'upcoming', label: 'Upcoming', content: <UpcomingEvents /> },
-  { value: 'past', label: 'Past', content: <PastEvents /> },
+<Tabs aria-label="Workspace" value={tab} onValueChange={setTab} items={[
+  { value: 'projects', label: 'Projects', content: <ProjectList /> },
+  { value: 'members', label: 'Members', content: <MemberList /> },
 ]} />
 ```
 
@@ -107,31 +109,12 @@ Items accept `disabled`. Omit `content` when your app renders the selected view 
   { value: 'online', label: 'Online', description: 'Join from anywhere' },
 ]} />
 <DropdownMenu label="More" align="end" items={[
-  { id: 'share', label: 'Share event', icon: <Icon name="share" />, onSelect: shareEvent },
-  { id: 'remove', label: 'Remove event', danger: true, onSelect: removeEvent },
+  { id: 'share', label: 'Share project', icon: <Icon name="share" />, onSelect: shareProject },
+  { id: 'remove', label: 'Remove project', danger: true, onSelect: removeProject },
 ]} />
 ```
 
 Both support disabled options, keyboard navigation, typeahead, and Escape dismissal. `Select` keeps selection in your app; `name` adds its value to native form submission. Give it `label` or `aria-label`. Menu items require unique `id` values and an `onSelect` handler.
-
-## Event cards and details
-
-```tsx
-<EventCard
-  title="An evening of good ideas"
-  href="/events/good-ideas"
-  coverUrl="/images/good-ideas.jpg"
-  time="6:00 PM"
-  hostName="Design Circle"
-  location="San Francisco"
-  badges={[{ label: 'Waitlist', tone: 'warning' }]}
-/>
-```
-
-- `EventCard`: `variant="timeline"` or `"compact"`; supports host avatars, attendance, and badges. Use `renderLink` to connect your router or preview controller; forward its supplied link props.
-- `EventDetails`: the shared full-page and preview layout. Requires `title`, `coverUrl`, and `date={{ month, day, label, time }}`. Set `presentation="preview"` inside an `EventPreview`.
-- Detail slots: `host`, `location`, `registration`, `about`, `featured`, `actions`, `sidebar`, `locationDetails`. Use `labels` for translations and `titleStyle` for event typography.
-- `RegistrationCard`: registration presentation with a required `action` element. Optional `title`, `description`, `status`, and `price`. Your app handles submission.
 
 ## Animated backgrounds
 
@@ -143,7 +126,7 @@ Both support disabled options, keyboard navigation, typeahead, and Escape dismis
     mode="contained"
     paused={false}
   />
-  <h1>Your event</h1>
+  <h1>Your next idea</h1>
 </div>
 ```
 
@@ -162,40 +145,13 @@ Both support disabled options, keyboard navigation, typeahead, and Escape dismis
 
 Animations pause when hidden, offscreen, or reduced motion is requested. Unknown themes show a static tint and a console warning. Grain Light is implemented but still lacks a captured reference comparison.
 
-## Event preview
-
-```tsx
-const [open, setOpen] = useState(false)
-
-<button onClick={() => setOpen(true)}>Preview event</button>
-<EventPreview
-  open={open}
-  onClose={() => setOpen(false)}
-  title="An evening of good ideas"
-  href="/events/good-ideas"
-  labels={{ eventPage: 'View event', copyLink: 'Copy link' }}
-  onNext={() => selectNextEvent()}
->
-  <YourEventContent />
-</EventPreview>
-```
-
-Your app owns event data, navigation, registration, and open state. Keep the component mounted while changing `open` so its exit animation can finish.
-
-- `onPrevious` / `onNext`: omitted controls are disabled.
-- `labels`: translate `dialog`, `close`, `copyLink`, `copied`, `copyFailed`, `eventPage`, `previous`, `next`.
-- `onCopyLink(url)`: replace the Clipboard API with your own adapter.
-- `copyFallback(url, error)` / `onCopyError(error)`: handle clipboard failures.
-- `eventLinkTarget`: `_blank` by default; `eventLinkRel` is configurable.
-- All `SidePanel` props below are available except `label` and `toolbar`.
-
 ## Side panel
 
 ```tsx
 <SidePanel
   open={open}
   onClose={() => setOpen(false)}
-  label="Event settings"
+  label="Workspace settings"
   toolbar={<button onClick={() => setOpen(false)}>Close</button>}
   style={{ '--event-ui-panel-width': '440px' }}
 >
@@ -209,7 +165,7 @@ Optional props: `className`, `style`, `toolbarClassName`, `contentClassName`, `p
 
 ## Fonts and customization
 
-The demo loads the clone's **Inter** font. The package does not include font files: load your chosen font in your application and set `--event-ui-font-family`.
+The demo loads Inter. The package does not include font files: load your chosen font in your application and set `--event-ui-font-family`.
 
 CSS variables work globally or on a containing element. Panels portal to `document.body` by default, so use global variables or panel `style` for their overrides.
 
@@ -245,7 +201,7 @@ Always import `@event-ui/react/styles.css` separately.
 
 SSR imports are safe. Panels render nothing on the server and mount a portal after hydration. Backgrounds render their static surface first, then initialize animation on the client. JavaScript entries preserve `"use client"` for React server-component frameworks; framework-specific integration is not yet tested.
 
-No router, event fixtures, downloaded fonts, logos, or event photos are included. Your application supplies them.
+No router, sample data, downloaded fonts, logos, or demo photos are included. Your application supplies them.
 
 ## Validation
 
@@ -258,4 +214,52 @@ npm run example:install
 npm run example:dev     # http://localhost:5174/playground/
 ```
 
-Five theme variants are available. Full Luma coverage and pixel-perfect fidelity remain work in progress.
+Five background variants are available. Reference comparisons remain incomplete; see [provenance and status](./PROVENANCE.md).
+
+## Optional event layouts
+
+These recipes come from the original Luma reference demo. Use them when your app needs event cards, registration, or previews.
+
+```tsx
+<EventCard
+  title="An evening of good ideas"
+  href="/events/good-ideas"
+  coverUrl="/images/good-ideas.jpg"
+  time="6:00 PM"
+  hostName="Design Circle"
+  location="San Francisco"
+  badges={[{ label: 'Waitlist', tone: 'warning' }]}
+/>
+```
+
+- `EventCard`: `variant="timeline"` or `"compact"`; supports host avatars, attendance, and badges. Use `renderLink` to connect your router or preview controller; forward its supplied link props.
+- `EventDetails`: the shared full-page and preview layout. Requires `title`, `coverUrl`, and `date={{ month, day, label, time }}`. Set `presentation="preview"` inside an `EventPreview`.
+- Detail slots: `host`, `location`, `registration`, `about`, `featured`, `actions`, `sidebar`, `locationDetails`. Use `labels` for translations and `titleStyle` for event typography.
+- `RegistrationCard`: registration presentation with a required `action` element. Optional `title`, `description`, `status`, and `price`. Your app handles submission.
+
+### Event preview
+
+```tsx
+const [open, setOpen] = useState(false)
+
+<button onClick={() => setOpen(true)}>Preview event</button>
+<EventPreview
+  open={open}
+  onClose={() => setOpen(false)}
+  title="An evening of good ideas"
+  href="/events/good-ideas"
+  labels={{ eventPage: 'View event', copyLink: 'Copy link' }}
+  onNext={() => selectNextEvent()}
+>
+  <YourEventContent />
+</EventPreview>
+```
+
+Your app owns event data, navigation, registration, and open state. Keep the component mounted while changing `open` so its exit animation can finish.
+
+- `onPrevious` / `onNext`: omitted controls are disabled.
+- `labels`: translate `dialog`, `close`, `copyLink`, `copied`, `copyFailed`, `eventPage`, `previous`, `next`.
+- `onCopyLink(url)`: replace the Clipboard API with your own adapter.
+- `copyFallback(url, error)` / `onCopyError(error)`: handle clipboard failures.
+- `eventLinkTarget`: `_blank` by default; `eventLinkRel` is configurable.
+- All `SidePanel` props above are available except `label` and `toolbar`.
