@@ -22,16 +22,16 @@ const components = [
   { id: 'avatars', name: 'Avatar', group: 'Foundations', description: 'Profile images, team groups, and initials when an image is unavailable.', source: 'Hosts & guest previews' },
   { id: 'icons', name: 'Icon', group: 'Foundations', description: 'Stroke icons with configurable size.', source: 'PageUI icon set' },
   { id: 'separator', name: 'Separator', group: 'Foundations', description: 'A subtle divider between sections of content.', source: 'Event detail section borders' },
-  { id: 'event-card', name: 'Event card', group: 'Event components', description: 'The timeline and compact discovery cards extracted from the clone.', source: 'Tokyo timeline & event discovery' },
-  { id: 'registration', name: 'Registration card', group: 'Event components', description: 'Registration, waitlist, and ticket information with your own action.', source: 'Event detail registration' },
-  { id: 'event-preview', name: 'Event preview', group: 'Event components', description: 'The intermediate event panel, with its toolbar and full event content.', source: 'Event card → preview interaction' },
+  { id: 'event-card', name: 'Event card', group: 'Recipes', description: 'A card composition for event listings, with timeline and compact layouts.', source: 'Tokyo timeline & event discovery' },
+  { id: 'registration', name: 'Registration card', group: 'Recipes', description: 'Registration, waitlist, and ticket information with your own action.', source: 'Event detail registration' },
+  { id: 'event-preview', name: 'Event preview', group: 'Recipes', description: 'The intermediate event panel, with its toolbar and full event content.', source: 'Event card → preview interaction' },
   { id: 'backgrounds', name: 'Animated backgrounds', group: 'Layout & motion', description: 'Animated backgrounds for headers, cards, and full pages.', source: 'Warp, Life, Grain & Standard themes' },
   { id: 'side-panel', name: 'Side panel', group: 'Layout & motion', description: 'A desktop drawer that becomes a bottom sheet on mobile.', source: 'Event preview panel' },
 ] as const
 
 const buttonVariants = ['primary', 'secondary', 'ghost', 'destructive'] as const
 const iconNames: IconName[] = ['search','arrow','pin','calendar','share','heart','check','close','clock','ticket','globe','chevron','download','users','more','filter','chevronDown','copy','code','grid','plus','minus','mail']
-const allPages = new Set(['overview', 'installation', ...components.map(component => component.id)])
+const allPages = new Set(['overview', 'installation', 'examples', ...components.map(component => component.id)])
 function currentPage() { const hash = window.location.hash.slice(1); return allPages.has(hash) ? hash : 'overview' }
 
 function Code({ children }: { children: string }) {
@@ -53,12 +53,12 @@ function Example({ children, code, title = 'Example', className = '' }: { childr
   </section>
 }
 
-export default function Catalog({ cloneHref = 'http://localhost:5173/discover' }: { cloneHref?: string }) {
+export default function Catalog({ cloneHref = 'https://ui.wtw.quest/demo' }: { cloneHref?: string }) {
   const [page, setPage] = useState(currentPage)
   const [search, setSearch] = useState('')
   const [mobileNav, setMobileNav] = useState(false)
   const [theme, setTheme] = useState<EventBackgroundTheme>('warp')
-  const [tint, setTint] = useState('#120404')
+  const [tint, setTint] = useState('#151515')
   const [paused, setPaused] = useState(false)
   const [preview, setPreviewIndex] = useState(0)
   const [previewOpen, setPreviewOpen] = useState(false)
@@ -74,6 +74,8 @@ export default function Catalog({ cloneHref = 'http://localhost:5173/discover' }
   const [action, setAction] = useState('')
   const [saved, setSaved] = useState(false)
   const selected = components.find(component => component.id === page)
+  const showRecipes = page === 'examples' || selected?.group === 'Recipes' || search.trim().length > 0
+  const pageName = selected?.name ?? (page === 'installation' ? 'Installation' : page === 'examples' ? 'Examples' : 'Overview')
   const previewEvent = events[preview ?? 0]
   const visibleComponents = components.filter(component => `${component.name} ${component.group}`.toLowerCase().includes(search.toLowerCase()))
   const fullEventSlug = new URLSearchParams(window.location.search).get('event')
@@ -171,17 +173,17 @@ export default function Catalog({ cloneHref = 'http://localhost:5173/discover' }
   if (fullEvent) return <div className="catalog catalog-event-page"><EventBackground theme={fullEvent.theme} tint={fullEvent.tint} /><header className="catalog-event-nav"><a href={window.location.pathname === "/" ? "/ui" : window.location.pathname}><Icon name="chevron" size={14} />Back to components</a><img src={wordmark} alt="Luma" /></header>{eventDetails(fullEvent, 'page')}<SidePanel style={{ '--event-ui-font-family': 'Inter, sans-serif', '--event-ui-focus-color': '#d8d8d8' }} open={panelOpen && panel === 'registration'} onClose={() => setPanel(null)} label="Registration example" toolbar={<PanelHeader title="Registration" close={() => setPanel(null)} />}><RegistrationForm onComplete={() => setAction('Registration form validated. No data was sent.')} /></SidePanel><div className="catalog-notice" role="status">{action}</div></div>
 
   return <div className="catalog">
-    <header className="catalog-header"><a className="catalog-brand" href="#overview" aria-label="UI components"><Brand /></a><div className="catalog-header-right"><span className="catalog-version">React · alpha</span><a href={cloneHref}>View clone <Icon name="arrow" size={14} /></a><IconButton className="catalog-mobile-toggle" id="catalog-navigation-toggle" aria-controls="catalog-component-navigation" aria-label="Toggle component navigation" aria-expanded={mobileNav} onClick={() => setMobileNav(!mobileNav)}><Icon name={mobileNav ? 'close' : 'grid'} /></IconButton></div></header>
+    <header className="catalog-header"><a className="catalog-brand" href="#overview" aria-label="UI components"><Brand /></a><div className="catalog-header-right"><span className="catalog-version">React · alpha</span><a href="#examples">Examples <Icon name="arrow" size={14} /></a><IconButton className="catalog-mobile-toggle" id="catalog-navigation-toggle" aria-controls="catalog-component-navigation" aria-label="Toggle component navigation" aria-expanded={mobileNav} onClick={() => setMobileNav(!mobileNav)}><Icon name={mobileNav ? 'close' : 'grid'} /></IconButton></div></header>
     <div className="catalog-layout">
       <aside className={`catalog-sidebar ${mobileNav ? 'is-open' : ''}`} aria-label="Component navigation" id="catalog-component-navigation" onClick={event => { if ((event.target as Element).closest('a')) { setMobileNav(false); document.getElementById('main-content')?.focus({ preventScroll: true }) } }}>
         <div className="catalog-search"><Icon name="search" size={15} /><Input aria-label="Search components" placeholder="Search components…" value={search} onChange={event => setSearch(event.target.value)} /></div>
-        <nav><div className="catalog-nav-group"><span>Getting started</span>{[{id:'overview',name:'Overview'},{id:'installation',name:'Installation'}].map(item => <a key={item.id} href={`#${item.id}`} aria-current={page === item.id ? 'page' : undefined}>{item.name}</a>)}</div>{['Foundations','Layout & motion','Event components'].map(group => <div className="catalog-nav-group" key={group}><span>{group}</span>{visibleComponents.filter(component => component.group === group).map(component => <a key={component.id} href={`#${component.id}`} aria-current={page === component.id ? 'page' : undefined}>{component.name}</a>)}</div>)}{visibleComponents.length === 0 && <p className="catalog-hint">No matching components.</p>}</nav>
+        <nav><div className="catalog-nav-group"><span>Getting started</span>{[{id:'overview',name:'Overview'},{id:'installation',name:'Installation'},{id:'examples',name:'Examples'}].map(item => <a key={item.id} href={`#${item.id}`} aria-current={page === item.id ? 'page' : undefined}>{item.name}</a>)}</div>{['Foundations','Layout & motion', ...(showRecipes ? ['Recipes'] : [])].filter(group => visibleComponents.some(component => component.group === group)).map(group => <div className="catalog-nav-group" key={group}><span>{group}</span>{visibleComponents.filter(component => component.group === group).map(component => <a key={component.id} href={`#${component.id}`} aria-current={page === component.id ? 'page' : undefined}>{component.name}</a>)}</div>)}{visibleComponents.length === 0 && <p className="catalog-hint">No matching components.</p>}</nav>
         <div className="catalog-sidebar-foot"><span className="catalog-status-dot" />React components</div>
       </aside>
 
       <main className="catalog-main" id="main-content" tabIndex={-1}>
-        <div className="catalog-breadcrumb">Components <Icon name="chevron" size={12} /><span>{selected?.name ?? (page === 'installation' ? 'Installation' : 'Overview')}</span></div>
-        <div className="catalog-page-heading"><h1>{selected?.name ?? (page === 'installation' ? 'Installation' : 'Components')}</h1><p>{selected?.description ?? (page === 'installation' ? 'Install the package. Import the styles. Bring your own content.' : 'Cards, forms, menus, panels, and backgrounds for your next project.')}</p></div>
+        <div className="catalog-breadcrumb">Components <Icon name="chevron" size={12} /><span>{pageName}</span></div>
+        <div className="catalog-page-heading"><h1>{page === 'overview' ? 'Components' : pageName}</h1><p>{selected?.description ?? (page === 'installation' ? 'Install the package. Import the styles. Bring your own content.' : page === 'examples' ? 'See how the components fit together in a complete interface.' : 'Cards, forms, menus, panels, and backgrounds for your next project.')}</p></div>
 
         {page === 'overview' ? <>
 
@@ -194,11 +196,13 @@ export default function Catalog({ cloneHref = 'http://localhost:5173/discover' }
             <MiniExample title="Avatars & badges" href="#avatars" footer="Profiles, groups & status labels"><div className="catalog-row"><AvatarGroup>{events.filter(event => event.hostAvatar).map(event => <Avatar key={event.slug} src={event.hostAvatar} alt={event.host} size="sm" />)}</AvatarGroup><Badge variant="warning">In review</Badge><Badge>Draft</Badge></div></MiniExample>
             <MiniExample title="Tabs" href="#tabs" footer="Arrow-key navigation & panels"><Tabs aria-label="Sample project tabs" value={workspaceTab} onValueChange={setWorkspaceTab} items={[{value:'active',label:'Active'},{value:'archived',label:'Archived'},{value:'drafts',label:'Drafts',disabled:true}]} /></MiniExample>
           </div>
-          <section className="catalog-background-teaser"><div><h2>Add some motion.</h2><p>Warp, Life, Grain, and the standard tint surface.</p><a href="#backgrounds">Explore backgrounds <Icon name="arrow" size={15} /></a></div><div className="catalog-theme-strip" aria-hidden="true"><div><EventBackground theme="warp" tint="#120404" mode="contained" /><span>Warp</span></div><div><EventBackground theme="life" tint="#151515" mode="contained" /><span>Life</span></div><div><EventBackground theme="grain-dark" tint="#1848a8" mode="contained" /><span>Grain</span></div></div></section>
-          <div className="catalog-section-title"><h2>Event layout examples</h2></div>
-          <div className="catalog-overview-top"><section className="catalog-feature" aria-label="Event card example"><div className="catalog-section-title"><h2>Event card</h2><a href="#event-card">Explore <Icon name="arrow" size={14} /></a></div><div className="catalog-feature-body">{eventCard(0)}</div><div className="catalog-feature-caption"><code>EventCard</code><span>Click to open the preview</span></div></section><section className="catalog-feature" aria-label="Registration example"><div className="catalog-section-title"><h2>Registration</h2><a href="#registration" aria-label="Explore registration card"><Icon name="arrow" size={14} /></a></div><div className="catalog-feature-body">{registration()}</div><div className="catalog-feature-caption"><code>RegistrationCard</code><span>Your own actions</span></div></section></div>
+          <section className="catalog-background-teaser"><div><h2>Add some motion.</h2><p>Warp, Life, Grain, and the standard tint surface.</p><a href="#backgrounds">Explore backgrounds <Icon name="arrow" size={15} /></a></div><div className="catalog-theme-strip" aria-hidden="true"><div><EventBackground theme="warp" tint="#151515" mode="contained" /><span>Warp</span></div><div><EventBackground theme="life" tint="#151515" mode="contained" /><span>Life</span></div><div><EventBackground theme="grain-dark" tint="#292929" mode="contained" /><span>Grain</span></div></div></section>
           <div className="catalog-quickstart"><h2>Use it in your app</h2><Code>{"import { Button, Card, Select } from '@event-ui/react'\nimport '@event-ui/react/styles.css'"}</Code><a href="#installation">Installation instructions <Icon name="arrow" size={14} /></a></div>
-        </> : page === 'installation' ? <div className="catalog-installation"><h2>1. Build the local package</h2><Code>{'npm install\nnpm run pack:lib'}</Code><h2>2. Install it in your React 19 app</h2><Code>{'npm install /path/to/artifacts/event-ui-react-0.1.0-alpha.0.tgz'}</Code><h2>3. Import a component and its styles</h2><Code>{"import { Button } from '@event-ui/react'\nimport '@event-ui/react/styles.css'\n\nexport function SaveButton() {\n  return <Button variant=\"primary\">Save changes</Button>\n}"}</Code><h2>Typography</h2><p>Load your font in the application, then set the shared font token. This catalog loads the same Inter file used in the clone.</p><Code>{':root {\n  --event-ui-font-family: Inter, sans-serif;\n}'}</Code><p className="catalog-hint">This is a local alpha. Demo artwork and font files stay outside the component package.</p></div> : <>{renderComponent()}<div className="catalog-source"><Icon name="code" size={15} /><span>Based on: {selected?.source}</span></div><div className="catalog-usage-note"><h2>Make it yours</h2><p>Import from <code>@event-ui/react</code>. Pass your own content and callbacks. Shared colors and typography use <code>--event-ui-*</code> CSS variables.</p></div></>}
+        </> : page === 'examples' ? <>
+          <div className="catalog-section-title"><h2>Event site</h2><a href={cloneHref}>Open example site <Icon name="arrow" size={14} /></a></div>
+          <div className="catalog-overview-top"><section className="catalog-feature" aria-label="Event card example"><div className="catalog-section-title"><h2>Event card</h2><a href="#event-card">Explore <Icon name="arrow" size={14} /></a></div><div className="catalog-feature-body">{eventCard(0)}</div><div className="catalog-feature-caption"><code>EventCard</code><span>Click to open the preview</span></div></section><section className="catalog-feature" aria-label="Registration example"><div className="catalog-section-title"><h2>Registration</h2><a href="#registration" aria-label="Explore registration card"><Icon name="arrow" size={14} /></a></div><div className="catalog-feature-body">{registration()}</div><div className="catalog-feature-caption"><code>RegistrationCard</code><span>Your own actions</span></div></section></div>
+          <p className="catalog-hint">An example built with cards, panels, forms, and animated backgrounds. Use the same components for your own product.</p>
+        </> : page === 'installation' ? <div className="catalog-installation"><h2>1. Build the local package</h2><Code>{'npm install\nnpm run pack:lib'}</Code><h2>2. Install it in your React 19 app</h2><Code>{'npm install /path/to/artifacts/event-ui-react-0.1.0-alpha.0.tgz'}</Code><h2>3. Import a component and its styles</h2><Code>{"import { Button } from '@event-ui/react'\nimport '@event-ui/react/styles.css'\n\nexport function SaveButton() {\n  return <Button variant=\"primary\">Save changes</Button>\n}"}</Code><h2>Typography</h2><p>Load your font in the application, then set the shared font token. This catalog uses Inter.</p><Code>{':root {\n  --event-ui-font-family: Inter, sans-serif;\n}'}</Code><p className="catalog-hint">This is a local alpha. Demo artwork and font files stay outside the component package.</p></div> : <>{renderComponent()}<div className="catalog-usage-note"><h2>Make it yours</h2><p>Import from <code>@event-ui/react</code>. Pass your own content and callbacks. Shared colors and typography use <code>--event-ui-*</code> CSS variables.</p></div></>}
         <footer className="catalog-footer">
           <span>React components · TypeScript · Scoped CSS</span>
           <div className="catalog-creator">

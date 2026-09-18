@@ -11,7 +11,7 @@ Source repository: https://github.com/V3idt/event-ui. Follow its release status 
 - [Integration guide and exact TypeScript API](https://ui.wtw.quest/llms-full.txt): install from a source checkout, examples, accessibility, CSS variables, and generated package declarations.
 - [Export manifest](https://ui.wtw.quest/components.json): machine-readable imports, types, peer dependencies, CSS variables, and API fingerprint.
 - [Component catalog](https://ui.wtw.quest/ui): interactive examples.
-- [Luma example](https://ui.wtw.quest/demo): an optional event-site recipe with discovery, pages, and previews.
+- [Examples](https://ui.wtw.quest/ui#examples): optional layouts composed from the library.
 - [Source repository](https://github.com/V3idt/event-ui): code and release status.
 
 Use the integration guide before editing a project. Read the manifest to confirm exact exports. Do not assume that an npm package or a public redistribution license exists.

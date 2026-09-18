@@ -132,6 +132,10 @@
 .home-creator>a:first-child { display: flex; align-items: center; gap: 9px; font-size: 11px; }
 .home-creator>a>span:last-child { display: flex; align-items: center; gap: 6px; }
 .home-avatar-credit { color: #898b92; font-size: 9px; }
+.home-not-found { min-height: 100svh; display: grid; place-items: center; padding: 140px 24px 80px; }
+.home-not-found-content { text-align: center; }
+.home-not-found-content h1 { font-size: clamp(38px, 7vw, 72px); letter-spacing: -.055em; line-height: 1.1; }
+.home-not-found-content p { color: var(--home-muted); margin: 24px 0; }
 @media (min-width: 1550px) {
   .home-header { padding-right: max(48px,calc((100vw - 1440px)/2)); padding-left: max(48px,calc((100vw - 1440px)/2)); }
 }
