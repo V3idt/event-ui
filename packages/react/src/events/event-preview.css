@@ -1,0 +1,41 @@
+.event-preview .preview-toolbar-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 4px 9px;
+  min-height: 30px;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+  border-radius: var(--event-ui-control-radius, 7px);
+  background: var(--event-ui-control-background, #ffffff0d);
+  color: var(--event-ui-control-color, #ffffffa3);
+  font: 500 14px/20px var(--event-ui-font-family, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .3s, color .3s;
+}
+.event-preview .preview-toolbar-button:hover:not(:disabled) {
+  background: var(--event-ui-control-hover-background, #ffffff1a);
+  color: var(--event-ui-control-hover-color, #fff);
+}
+.event-preview .preview-toolbar-button:disabled { opacity: .3; cursor: default; }
+.event-preview .preview-close { background: none; padding: 5px; margin-right: 8px; }
+.event-preview .preview-close svg { width: 20px; height: 20px; }
+.event-preview .preview-close-mobile { display: none; }
+.event-preview .preview-toolbar-links { display: flex; align-items: center; gap: 8px; flex: 1; }
+.event-preview .preview-toolbar-pagination { display: flex; gap: 4px; margin-left: 8px; }
+.event-preview .preview-toolbar-pagination button { padding: 5px; width: 30px; }
+
+@media (max-width: 450px) {
+  .event-preview .preview-close { order: 3; margin: 0 0 0 4px; background: var(--event-ui-control-background, #ffffff0d); border-radius: 50%; }
+  .event-preview .preview-close-desktop { display: none; }
+  .event-preview .preview-close-mobile { display: initial; }
+  .event-preview .preview-toolbar-pagination { order: 0; margin: 0 8px 0 0; }
+  .event-preview .preview-toolbar-links { order: 1; gap: 8px; }
+  .event-preview .preview-toolbar-button { padding: 4px 7px; font-size: 13px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-preview .preview-toolbar-button { transition: none; }
+}

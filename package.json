@@ -4,19 +4,33 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "build:lib": "npm run build --workspace @event-ui/react",
     "dev": "vite --host 0.0.0.0",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "build": "npm run build:lib && tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "predev": "npm run build:lib",
+    "test": "npm run test --workspace @event-ui/react",
+    "pack:lib": "node scripts/pack-library.mjs",
+    "verify:package": "node scripts/verify-package.mjs",
+    "example:dev": "npm --prefix examples/react run dev",
+    "example:install": "node scripts/install-example.mjs"
   },
   "dependencies": {
+    "@event-ui/react": "0.1.0-alpha.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.3.3",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "@vitejs/plugin-react": "^4.5.0",
+    "jsdom": "^30.1.0",
     "typescript": "~5.8.3",
-    "vite": "^6.3.5"
-  }
+    "vite": "^6.3.5",
+    "vitest": "^5.0.1"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

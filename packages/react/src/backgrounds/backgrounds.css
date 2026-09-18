@@ -1,0 +1,8 @@
+.event-ui-background { pointer-events: none; overflow: hidden; z-index: -1; background: var(--event-background-color, #222); }
+.event-ui-background--fixed { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100lvh; }
+.event-ui-background--contained { position: absolute; inset: 0; }
+.event-ui-background canvas { display: block; width: 100%; height: 100%; }
+.event-ui-background--animated canvas { animation: event-ui-background-appear 2s forwards; }
+@keyframes event-ui-background-appear { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .event-ui-background--animated canvas { animation: none; } }
+.event-ui-background[data-motion="paused"] canvas { animation: none; }

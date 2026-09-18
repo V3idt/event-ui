@@ -1,0 +1,27 @@
+{
+  "name": "@event-ui/react",
+  "version": "0.1.0-alpha.0",
+  "description": "Configurable React panels, event previews, and animated backgrounds. Local alpha.",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "files": ["dist", "README.md", "PROVENANCE.md"],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./panels": { "types": "./dist/panels.d.ts", "import": "./dist/panels.js" },
+    "./backgrounds": { "types": "./dist/backgrounds/index.d.ts", "import": "./dist/backgrounds.js" },
+    "./styles.css": "./dist/styles.css",
+    "./package.json": "./package.json"
+  },
+  "sideEffects": ["**/*.css"],
+  "peerDependencies": { "react": "^19.0.0", "react-dom": "^19.0.0" },
+  "scripts": {
+    "build": "vite build && tsc -p tsconfig.build.json && node scripts/finalize-types.mjs",
+    "test": "vitest run --config vitest.config.ts",
+    "prepack": "npm run build"
+  },
+  "engines": { "node": ">=20.19.0" }
+}
