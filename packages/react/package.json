@@ -1,7 +1,7 @@
 {
   "name": "@event-ui/react",
   "version": "0.1.0-alpha.0",
-  "description": "Configurable React panels, event previews, and animated backgrounds. Local alpha.",
+  "description": "Clone-derived React foundations, event cards, dropdowns, previews, and animated backgrounds. Local alpha.",
   "private": true,
   "license": "UNLICENSED",
   "type": "module",
@@ -12,6 +12,7 @@
   "exports": {
     ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
     "./panels": { "types": "./dist/panels.d.ts", "import": "./dist/panels.js" },
+    "./components": { "types": "./dist/components.d.ts", "import": "./dist/components.js" },
     "./backgrounds": { "types": "./dist/backgrounds/index.d.ts", "import": "./dist/backgrounds.js" },
     "./styles.css": "./dist/styles.css",
     "./package.json": "./package.json"

@@ -9,6 +9,7 @@ export default defineConfig({
       entry: {
         index: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
         panels: fileURLToPath(new URL('./src/panels.ts', import.meta.url)),
+        components: fileURLToPath(new URL('./src/components.ts', import.meta.url)),
         backgrounds: fileURLToPath(new URL('./src/backgrounds/index.ts', import.meta.url)),
       },
       formats: ['es'],

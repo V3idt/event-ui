@@ -46,10 +46,14 @@ try {
 import assert from 'node:assert/strict'
 import { createElement } from 'react'
 import { renderToString } from 'react-dom/server'
-import { SidePanel, EventPreview, EventBackground } from '@event-ui/react'
+import { SidePanel, EventPreview, EventBackground, Button, Select, EventCard } from '@event-ui/react'
 import * as panels from '@event-ui/react/panels'
 import * as backgrounds from '@event-ui/react/backgrounds'
+import * as components from '@event-ui/react/components'
 assert.equal(SidePanel, panels.SidePanel)
+assert.equal(Button, components.Button)
+assert.equal(EventCard, components.EventCard)
+assert.match(renderToString(createElement(Select, {label:'Location',value:'tokyo',onValueChange(){},options:[{value:'tokyo',label:'Tokyo'}]})), /combobox/)
 assert.equal(EventBackground, backgrounds.EventBackground)
 assert.equal(renderToString(createElement(EventPreview, {open:true,title:'SSR',href:'/event',onClose(){},children:'Hello'})), '')
 assert.match(renderToString(createElement(EventBackground, {theme:'life'})), /data-event-ui="background"/)
