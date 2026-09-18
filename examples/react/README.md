@@ -1,6 +1,9 @@
-# Independent consumer
+# Component catalog and independent consumer
 
-This app installs the **packed tarball**, not the workspace source.
+**One catalog, two entry points:**
+
+- `http://localhost:5174/playground/` tests the installed tarball.
+- `http://localhost:5173/ui` uses the same catalog with the workspace package.
 
 From the repository root:
 
@@ -9,10 +12,22 @@ npm run example:install
 npm run example:dev
 ```
 
-Open **http://localhost:5174/playground/**.
+Open **[localhost:5174/playground/](http://localhost:5174/playground/)**.
 
-Try all five backgrounds, pause motion, open the event preview, switch events, and open the side panel. Resize below 450px to see the bottom sheet.
+Try:
 
-Only synthetic event content and CSS artwork are used. No original app assets or source imports are needed.
+- Buttons, cards, badges, avatars, fields, checkboxes, switches, and tabs.
+- Selects and action menus, including keyboard navigation.
+- Timeline and compact event cards → preview → full event page.
+- Registration cards and the local registration form.
+- All five backgrounds, tint settings, pause, and side panels.
 
-`npm run verify:package` goes further: it copies this app to a temporary directory outside the repository, installs the tarball there, checks TypeScript, builds under `/playground/`, and verifies server rendering.
+The side panel becomes a bottom sheet at 450px and below. Each component page includes a usage example.
+
+**Appearance comes from the clone.** The catalog loads its Inter, Roc Grotesk, and Geist Mono fonts, four event covers, available host avatars, and wordmark from `src/assets`.
+
+Those files are demo assets. They are excluded from `@event-ui/react`; consumers supply their own fonts, artwork, data, and actions. Review [provenance](../../packages/react/PROVENANCE.md) before sharing them publicly.
+
+`Catalog.tsx` imports package components. It does not import the clone's app components or fixture modules. The root `/ui` route imports this catalog; its Vite and TypeScript settings resolve one workspace package and React instance.
+
+`npm run verify:package` copies this app to a temporary directory outside the repository, installs the tarball, checks TypeScript, builds under `/playground/`, and verifies server rendering. This checks portability; full visual parity with Luma remains unfinished.

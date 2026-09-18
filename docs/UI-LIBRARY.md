@@ -2,7 +2,9 @@
 
 Updated: September 18, 2026. Scope: the public homepage, discovery directory, city/category browsing, event previews, and event detail pages. This is an implementation plan and coverage ledger, not a claim that every item below is implemented or visually verified.
 
-**Current milestone:** three components are extracted into the locally installable `@event-ui/react` package. It is a **private alpha**, with public licensing and provenance work still open. Start with the [package API guide](../packages/react/README.md) or the [repository quickstart](../README.md).
+**Current milestone:** a locally installable React library with foundations, dropdowns, event cards, event details, registration, previews, and backgrounds. The clone and independent consumer share one component catalog.
+
+It remains a **private alpha**. Start with the [package API guide](../packages/react/README.md), [quickstart](../README.md), or [catalog](http://localhost:5173/ui).
 
 The library should reproduce a **versioned, recorded set of Luma states**. “Perfect copy” is an acceptance criterion for that set, not something a homepage screenshot or successful build proves. The live reference changes its events, dates, randomized artwork, and themes. Unknown states remain visible in the ledger until captured; they must not quietly become generic substitutes.
 
@@ -12,17 +14,35 @@ The original omissions have been addressed in code: event pages now use distinct
 
 | Alpha component | Implementation | Configuration |
 | --- | --- | --- |
+| `Button`, `IconButton`, `Badge`, `Icon` | `packages/react/src/foundations/` | Native attributes, variants, sizes, loading and disabled states |
+| `Card` and header/title/description/content/footer slots | `packages/react/src/foundations/` | Content, padding, native attributes, scoped styles |
+| `Avatar`, `AvatarGroup`, `Separator` | `packages/react/src/foundations/` | Images/fallbacks, sizes, shape, grouping, orientation |
+| `Field`, `Input`, `Textarea`, `Checkbox`, `Switch` | `packages/react/src/foundations/` | Labels, hints, errors, native forms, refs, controlled or native state |
+| `Tabs`, `Select`, `DropdownMenu` | `packages/react/src/foundations/`, `dropdowns/` | Controlled values/actions, options, disabled states, keyboard interaction |
+| `EventCard` | `packages/react/src/events/EventCard.tsx` | Timeline/compact variants, cover, host, badges, native link adapter |
+| `EventDetails`, `RegistrationCard` | `packages/react/src/events/EventDetails.tsx` | Page/preview presentation; supplied data, content, fonts, and actions |
 | `SidePanel` | `packages/react/src/SidePanel.tsx` | Controlled open/close, toolbar/content slots, styling, portal container |
 | `EventPreview` | `packages/react/src/events/EventPreview.tsx` | Content, links, translated labels, previous/next callbacks, copy adapter |
 | `EventBackground` | `packages/react/src/backgrounds/` | Theme, tint, appearance, seed, pause/reduced motion, optional grain texture |
 
-The package builds ESM, TypeScript declarations, and an explicit stylesheet. React 19 and React DOM are peer dependencies. `examples/react` installs the tarball and serves under `/playground/`; `npm run verify:package` checks a fresh installation, strict TypeScript, production build, exports/assets, and Node SSR. `npm test` covers SSR/hydration, controlled behavior, scroll/focus cleanup, nested locks, and animation lifecycle. These are functional contracts, not visual comparison results.
+The package builds ESM, TypeScript declarations, and an explicit stylesheet. React 19 and React DOM are peer dependencies.
 
-The demo imports the package through thin `src/ui` adapters. `EventPreviewProvider`/`EventLink` still own selection and URL/history handling. Fixture data, formatting, fonts, registration previews, storage, and event-specific content styles remain in the app. The package has no dependency on the demo's `/assets` paths or nine-event dataset. Its bundled grain texture and source-derived renderers still require the [provenance review](../packages/react/PROVENANCE.md).
+- `examples/react` installs the tarball and serves at `/playground/`.
+- The clone's `/ui` route imports the same `Catalog.tsx`. Root Vite deduplication and TypeScript paths resolve the workspace package and one React instance.
+- `npm run verify:package` checks a fresh installation outside the repository, TypeScript, production build, exports/assets, and Node SSR.
+- `npm test` covers form semantics, keyboard interaction, controlled behavior, SSR/hydration, overlay cleanup, and animation lifecycle.
+
+These checks establish functional behavior and portability. Visual comparison remains separate work.
+
+The clone's timeline and discovery rows now use `EventCard`; `PageUI` imports the package's `Icon`. Existing `src/ui` adapters continue to expose panels and backgrounds. `EventPreviewProvider`/`EventLink` own selection and URL/history handling.
+
+The shared catalog uses `EventDetails` for its full pages and previews. The original `EventPage.tsx` still owns its app-specific layout and local actions. A full migration to the package presentation remains work to do.
+
+The catalog's `src/assets` contains the clone's Inter, Roc Grotesk, and Geist Mono fonts, four captured covers, available host avatars, and wordmark. These are **demo-only assets**, excluded from the component package. Package consumers provide their own fonts, data, and URLs. Source-derived renderers and the grain texture remain covered by the [provenance review](../packages/react/PROVENANCE.md).
 
 The existing nine fixtures contain six `legacy` events and one each of `warp`, `life`, and `grain-dark`. Theme configuration is larger than a background name: the inspected reference registry also defines title fonts, light/dark behavior, high-contrast surfaces, cover treatment, liquid glass, and tint behavior. For example, its defaults specify Roc Grotesk for Warp, Geist Mono for Life, and Futura for Grain. An event's own explicit settings may override defaults. Applying Roc Grotesk and a dark palette to every event loses these details.
 
-Further components remain app-specific. Extract them with explicit data, routing, clock, asset, and storage boundaries. The three alpha components establish that boundary; they do not make the rest of the application a reusable library automatically.
+Directory tiles, timelines, dialogs, maps, site headers/footers, and marketing sections remain app-specific. Extract them with explicit data, routing, clock, asset, and storage boundaries.
 
 ## Source of truth and evidence
 
@@ -58,15 +78,15 @@ Registration state is not permanently determined by an event's date on the live 
 
 ## Component boundaries
 
-Continue extraction in `packages/react/src`, keeping the demo as the integration example and the tarball consumer as the portability check. The table below is the expansion catalog. Only `SidePanel`, `EventPreview`, and `EventBackground` are current package components; the remaining names describe planned boundaries.
+Keep the clone as the integration example and the tarball consumer as the portability check. The table distinguishes current exports from remaining extraction work.
 
 | Layer | Public components/modules | Current extraction source | Required responsibility |
 | --- | --- | --- | --- |
-| Foundations | `ThemeProvider`, tokens, typography, icons, motion clock | `fonts.css`, `styles.css`, `PageUI.tsx` | Scope styles; resolve event theme; supply asset URLs, locale, and clock |
-| Primitives | `Button`, `IconButton`, `Link`, `Badge`, `Avatar`, `AvatarStack`, `Input`, `Select`, `Tabs`, `Divider`, `Skeleton` | `PageUI.tsx`, `pages.css`, `discovery.css` | Visual variants, state styling, keyboard behavior; no fixture imports |
-| Surfaces | `SidePanel` now; `Card`, `GlassSurface`, `Dialog`, `Popover`, `Tooltip`, `Toast` planned | Package `SidePanel`; app `Modal` and card styles | Portal/layer order, focus, dismissal, scrolling, animation lifecycle |
-| Event summaries | `EventCard`, `CompactEventRow`, `TimelineEventCard`, `EventTimeline` | `Discovery.tsx`, `DiscoverPage.tsx`, `BrowsePage.tsx` | Share data model; preserve each reference presentation rather than forcing one card layout |
-| Event presentation | `EventCover`, `EventHeader`, `EventFacts`, `HostList`, `GuestPreview`, `RegistrationPanel`, `EventDescription`, `EventLocation`, `EventActions` | `EventPage.tsx` | Same content in full page and preview; explicit density/layout variants |
+| Foundations | `Icon` and scoped tokens now; full theme resolver, font configuration, and motion clock planned | Package `foundations/`; app fonts/theme metadata | Preserve measured styles; keep fonts opt-in; supply locale and clock |
+| Primitives | Buttons, badges, avatars/groups, fields, inputs, textarea, checkbox, switch, select, menus, tabs, separator now; link and skeleton planned | Package `foundations/`, `dropdowns/` | Visual states, native forms, keyboard behavior; no fixture imports |
+| Surfaces | `SidePanel` and `Card`/slots now; centered dialog, glass surface, popover, tooltip, toast planned | Package panels/foundations; app `Modal` | Portal order, focus, dismissal, scrolling, animation lifecycle |
+| Event summaries | `EventCard` timeline/compact now; timeline grouping and homepage variants planned | Package `EventCard`; app discovery/timeline | Preserve each presentation and native link behavior |
+| Event presentation | `EventDetails` page/preview and `RegistrationCard` now; granular cover/facts/hosts/guests/location/actions exports planned | Package `EventDetails`; app `EventPage` | Supplied content and actions; preserve page/preview layouts |
 | Event navigation | `EventPreview` now; provider/link/layout adapters remain app-specific | Package preview; app `EventPreviewProvider` and `EventPage` | Open/close/expand; preserve origin route, scroll, focus, and native link semantics |
 | Event themes | `EventBackground` now; `EventTheme` and full configuration resolver planned | Package renderers; app font/theme metadata | Typed configuration; tint/fonts/surfaces/cover treatment plus animation |
 | Discovery | `CategoryTile`, `CalendarCard`, `CityTile`, `CityPicker`, `ContinentTabs`, `BrowseFilters`, `DirectorySection` | `Discovery.tsx`, `DiscoverPage.tsx`, `BrowsePage.tsx` | Controlled filters and selection; explicit loading/empty/error states |
@@ -85,24 +105,20 @@ Two components can look different while sharing behavior. In particular, a cente
 - Theme names use a discriminated union with validated parameters. Unknown IDs produce an explicit development warning and documented fallback, not silent “verified” support.
 - Portal containers, stacking order, and body scroll locking support nested overlays. Only the uppermost dismissible overlay consumes Escape.
 
-**Future API sketch—not implemented exports.** The current supported props are in the [package README](../packages/react/README.md).
+**Current card API:** the application owns navigation and event data.
 
 ```tsx
-<UiProvider assets={assets} locale="en-US" now={clock.now}>
-  <EventPreviewProvider navigation={navigation}>
-    <EventLink event={event} href={`/events/${event.id}`}>
-      <EventCard event={event} />
-    </EventLink>
-  </EventPreviewProvider>
-</UiProvider>
-
-<EventTheme config={event.theme}>
-  <EventBackground clock={motionClock} seed={42} />
-  <EventPageLayout event={event} actions={actions} />
-</EventTheme>
+<EventCard
+  title={event.name}
+  href={`/events/${event.id}`}
+  coverUrl={event.image}
+  time={formattedTime}
+  location={event.location}
+  variant="timeline"
+/>
 ```
 
-The example describes the proposed package API. The app already has an `EventPreviewProvider`; its current props are not the proposed adapter-based interface shown here.
+Use `variant="compact"` for discovery rows. `renderLink` receives the native anchor props and children so a router or preview controller can wrap them without nested links. `EventDetails` accepts already-formatted date labels, host/location data, content slots, and registration actions. See the [package API guide](../packages/react/README.md).
 
 ## Tokens and theme resolution
 
@@ -173,7 +189,7 @@ The intermediate preview is part of the navigation model, not just a different c
 
 ## Visual and motion verification
 
-The demo `/ui` gallery and independent `/playground/` consumer already provide local inspection surfaces. Expand them to cover every supported variant and state, including long content, theme controls, and evidence links. They are not yet a complete reference-backed story catalog. A dedicated documentation tool can follow as the API stabilizes.
+The shared catalog at `/ui` and `/playground/` provides interactive controls, usage examples, event compositions, and theme settings. Both entry points use the same catalog source; the standalone app tests the packed package. Expand state coverage and evidence links before treating this as a complete reference-backed catalog.
 
 For repeatable captures, inject fixture time (`2026-09-18T06:00:00Z` is a useful initial baseline), locale/timezone, a seeded random source, and a manual animation clock. Motion components should support `seek(ms)`, pause/resume, and disposal in the test harness without making production animations global. Wait for `document.fonts.ready`, image decode, and stable layout before capture. Do not hide the actual effect in order to make screenshot tests pass.
 
@@ -201,7 +217,7 @@ These remain open until evidence closes them, even if the app builds:
 - Nine events do not reproduce live counts or inventory. Category descriptions and most city behavior are generic; many destinations have no local events. City grouping currently uses event-specific shortcuts.
 - Header/search, compact footer icons, city picker, filters, tabs, and dialogs need state-by-state reference audits. Native HTML controls alone do not establish reference styling or keyboard parity.
 - Some routes intentionally navigate to the original site. Calendar/community pages, account screens, creation flows, and native apps are outside the selected page scope; crossing that boundary must be visible in the catalog.
-- The three package components are independent of demo assets, fonts, fixtures, storage, and routing. Further app components still need these dependencies separated before extraction.
+- The package components accept demo assets, fonts, data, and actions through explicit props or CSS configuration. More app components still need these dependencies separated; the original event page has not yet migrated to `EventDetails`.
 - Selected durable screenshots, local galleries, and package-consumer tests exist. A complete reference-state manifest, reviewed screenshot/motion baseline corpus, and automated reference comparison suite do not.
 - Public release is blocked on provenance and license decisions. Source-derived renderers and the bundled grain texture require review or replacement; demo reference assets require a separate review.
 
@@ -209,13 +225,13 @@ These remain open until evidence closes them, even if the app builds:
 
 Keep commits atomic, as required by the global `AGENTS.md`. Each commit should have one reviewable purpose and its relevant evidence.
 
-1. **Alpha extraction—implemented:** three components, scoped styles, ESM/declarations, React peers, SSR/hydration tests, independent tarball consumer, and CI. Run `npm run build`, `npm test`, and `npm run verify:package` after package changes.
+1. **Expanded alpha—implemented:** foundations, dropdowns, event cards/details/registration, panels, backgrounds, scoped styles, ESM/declarations, React peers, tests, tarball consumer, and CI. Run `npm run build`, `npm test`, and `npm run verify:package` after package changes.
 2. **Reference coverage—incomplete:** preserve full theme settings, font choices, permitted assets, state manifests, and a deterministic clock/seed harness. Extend selected existing checks into repeatable visual/motion comparisons.
 3. **Public release preparation—open:** review source-derived code and the grain texture; replace or obtain permission where needed. Choose the public name and license. Review repository history before sharing demo material.
-4. **More foundations and event components—planned:** extract controls, surfaces, cards, facts, hosts, and registration presentation. Keep routing/storage/registration actions in adapters and add state stories alongside each component.
+4. **Further composition—planned:** migrate the original event page to shared presentation, extract centered dialogs and remaining event subcomponents, and add missing states. Keep routing/storage/registration actions in adapters.
 5. **Discovery and marketing—planned:** extract timelines, filters, directory tiles, and landing components while preserving their distinct layouts. Add responsive and motion evidence.
 6. **Additional theme families—planned:** capture and implement deliberately. A family remains experimental until its variants, settings, font/cover treatment, and lifecycle pass review.
 
-Current import boundaries are `@event-ui/react`, `@event-ui/react/panels`, `@event-ui/react/backgrounds`, and `@event-ui/react/styles.css`. The package name is provisional. Event fonts, sample content, branding, and reference artwork stay in the demo; the alpha's grain texture is documented separately in its provenance manifest. Separate per-theme lazy-loading and broader tree-shaking budgets can follow; a dedicated landing export does not exist yet.
+Current imports: `@event-ui/react`, `@event-ui/react/components`, `@event-ui/react/panels`, `@event-ui/react/backgrounds`, and `@event-ui/react/styles.css`. The package name is provisional. Fonts, sample content, branding, and event artwork stay in the demos. Grain texture provenance is documented separately. A dedicated landing-page export does not exist yet.
 
 Mark an initial release as preview/experimental until its declared component/state matrix is verified. A stable release needs zero untriaged discrepancies in its declared scope, a published supported-theme list, complete controlled-state APIs, keyboard/mobile verification, package-consumer checks, and visual/motion baselines. Additional Luma states discovered later become new manifest rows and cannot inherit a verified badge from a similar-looking component.
