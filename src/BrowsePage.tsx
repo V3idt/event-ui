@@ -1,11 +1,21 @@
 import { useState, type FormEvent } from 'react'
+import { EventCard } from '@event-ui/react'
 import { allEvents, cities, directoryCategories, directoryCities, eventCity, eventDate, eventPrice, eventTags, eventTime, type EventRecord } from './event-data'
 import { EventLink } from './EventPreviewProvider'
 import { categories } from './discovery-data'
 import { Icon, Modal, PageFooter, PageHeader, useSavedList } from './PageUI'
 
 export function TimelineEvent({ event, sequence }: { event: EventRecord; sequence?: readonly EventRecord[] }) {
-  return <EventLink event={event} sequence={sequence} className="timeline-event"><div className="timeline-event-info"><span className="muted">{eventTime(event)}</span><h3>{event.name}</h3><p>{event.hostAvatar && <img src={event.hostAvatar} alt="" />} By {event.host || 'Event host'}</p><p><Icon name="pin" size={14} /> {event.location}</p><div className="event-badges">{event.waitlist && <span className="waitlist-badge">Waitlist</span>}{!event.waitlist && event.soldOut && <span>Sold Out</span>}{!event.free && <span>{eventPrice(event)}</span>}{event.going > 0 && <span><Icon name="users" size={13} /> {event.going} Going</span>}</div></div><img className="timeline-cover" src={event.image} alt="" loading="lazy" /></EventLink>
+  return <EventCard
+    href={`/${event.slug}`} title={event.name} coverUrl={event.image}
+    time={eventTime(event)} hostName={event.host || 'Event host'} hostAvatarUrl={event.hostAvatar}
+    location={event.location} going={event.going}
+    badges={[
+      ...(event.waitlist ? [{ label: 'Waitlist', tone: 'warning' as const }] : event.soldOut ? [{ label: 'Sold Out' }] : []),
+      ...(!event.free ? [{ label: eventPrice(event) }] : []),
+    ]}
+    renderLink={props => <EventLink {...props} event={event} sequence={sequence} />}
+  />
 }
 
 export default function BrowsePage({ city, category }: { city?: string; category?: string }) {
